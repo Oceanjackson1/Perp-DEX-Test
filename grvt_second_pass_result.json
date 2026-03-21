@@ -1,0 +1,201 @@
+{
+  "platform": "GRVT",
+  "second_pass_date": "2026-03-21",
+  "methodology": "official docs re-check + testnet env config extraction + live API probe + wallet login re-test",
+
+  "key_corrections": [
+    "GRVT Native SecureKey is NOT just 'powered by Privy' — it is a Dfns + Privy composite. Testnet env config shows both NEXT_PUBLIC_DFNS_APP_ID and NEXT_PUBLIC_PRIVY_APP_ID active, with NEXT_PUBLIC_DFNS_PRIVY_ENABLE=1. Dfns handles MPC wallet infrastructure (WebAuthn passkeys, backup codes), Privy handles email OTP authentication layer.",
+    "Web2 onboarding is broader than first-pass documented: Apple OAuth (APPLE_OAUTH_ENABLE=1) and Microsoft OAuth (MSFT_SIGN_UP_OAUTH_REQUIRED=1) are both enabled in testnet env. This makes GRVT the broadest Web2 social login provider in the sample.",
+    "KYC is now explicitly enabled (NEW_KYC_ENABLE=1, KYC_MOBILE_ENABLED=1). This is a significant friction point not present in most other platforms in the sample.",
+    "Business account signup is also enabled (ENABLE_BUSINESS_ACCOUNT_SIGNUP=1), confirming institutional-grade intent.",
+    "GRVT has its own L2 chain (Chain ID 326 testnet, 325 mainnet) with custom RPC (rpc.testnet.grvt.io / rpc.grvt.io). This is not just an app-layer; it's a ZK-rollup with its own block production."
+  ],
+
+  "first_pass_still_valid": [
+    "Wallet login with unregistered address still returns 401 'wallet address not registered' on both testnet and mainnet.",
+    "The Web2 + Web3 dual-credential model is confirmed: email/OAuth for Web2, SecureKey for Web3.",
+    "Funding Account vs Trading Account separation is confirmed.",
+    "API key creation requires a registered SecureKey and is scoped to Trading Account level.",
+    "API key login and wallet login (EIP-712) both return session cookies.",
+    "The initialization chain (Create Web2 Account -> SecureKey -> Web3 Accounts -> Fund -> API Key) is still the documented path.",
+    "5 API keys max per Funding Account, 5 per Trading Account."
+  ],
+
+  "live_probe_results": {
+    "testnet_wallet_login": {
+      "endpoint": "https://edge.testnet.grvt.io/auth/wallet/login",
+      "wallet": "0x41Deec4e76e46c18719E90920C1efef370B7DB0A",
+      "status": 401,
+      "body": "{\"status\":401,\"message\":\"wallet address not registered\"}",
+      "note": "Fresh EIP-712 signed login attempt with correct domain/types. Confirms cold wallet cannot authenticate."
+    },
+    "mainnet_wallet_login": {
+      "endpoint": "https://edge.grvt.io/auth/wallet/login",
+      "status": 400,
+      "body": "{\"status\":400,\"message\":\"invalid wallet address\"}",
+      "note": "Mainnet endpoint is live but returns 400 for raw address format (needs full EIP-712 signature payload)."
+    },
+    "testnet_api_key_login": {
+      "endpoint": "https://edge.testnet.grvt.io/auth/api_key/login",
+      "status": "failure",
+      "body": "{\"error\":\"ent: api_key not found\",\"status\":\"failure\"}",
+      "note": "Invalid API key correctly rejected."
+    },
+    "testnet_server_time": {
+      "endpoint": "https://market-data.testnet.grvt.io/time",
+      "status": 200,
+      "sample": "{\"server_time\": 1774090304805}"
+    },
+    "mainnet_server_time": {
+      "endpoint": "https://market-data.grvt.io/time",
+      "status": 200,
+      "sample": "{\"server_time\": 1774090304461}"
+    },
+    "testnet_market_data": {
+      "endpoint": "https://market-data.testnet.grvt.io/full/v1/instrument",
+      "status": 200,
+      "sample_instrument": "BTC_USDT_Perp",
+      "note": "Returns full instrument details including tick_size, min_size, base/quote decimals. Public read-only, no auth needed."
+    },
+    "testnet_all_instruments": {
+      "endpoint": "https://market-data.testnet.grvt.io/full/v1/all_instruments",
+      "status": 200,
+      "note": "Returns full instrument list. Public, no auth."
+    },
+    "mainnet_all_instruments": {
+      "endpoint": "https://market-data.grvt.io/full/v1/all_instruments",
+      "status": 200,
+      "instrument_count": 95,
+      "note": "Mainnet market data is fully public."
+    },
+    "testnet_frontend": {
+      "url": "https://testnet.grvt.io",
+      "redirects_to": "/exchange/perpetual/BTC-USDT",
+      "powered_by": "Next.js",
+      "framework_signals": "Sentry instrumented, Next.js SSR"
+    }
+  },
+
+  "env_config_findings": {
+    "source": "https://testnet.grvt.io/api/env",
+    "privy": {
+      "NEXT_PUBLIC_PRIVY_APP_ID": "cm8ftdmx602461229vprun741",
+      "note": "Privy is active on testnet"
+    },
+    "dfns": {
+      "NEXT_PUBLIC_DFNS_ENABLE": "1",
+      "NEXT_PUBLIC_DFNS_PRIVY_ENABLE": "1",
+      "NEXT_PUBLIC_DFNS_APP_ID": "ap-3u16a-jq5e8-9gaqa965d49p5u36",
+      "NEXT_PUBLIC_DFNS_ORG_ID": "or-1r3dt-7kcb9-0r8ckn81rag7lit",
+      "NEXT_PUBLIC_DFNS_NETWORK": "EthereumSepolia",
+      "NEXT_PUBLIC_DFNS_API": "https://dfns.testnet.grvt.io/api/v1",
+      "NEXT_PUBLIC_DFNS_API_URL": "proxy-dfns.testnet.grvt.io",
+      "NEXT_PUBLIC_DFNS_RPID": "testnet.grvt.io",
+      "NEXT_PUBLIC_DFNS_ENABLE_BK_CODES": "1",
+      "NEXT_PUBLIC_DFNS_ENABLE_BK_CODES_CREATE": "1",
+      "NEXT_PUBLIC_DFNS_ENABLE_CREDENTIALS": "1",
+      "note": "Dfns provides the actual MPC/WebAuthn wallet infrastructure behind Native SecureKey"
+    },
+    "oauth": {
+      "NEXT_PUBLIC_APPLE_OAUTH_ENABLE": "1",
+      "NEXT_PUBLIC_MSFT_SIGN_UP_OAUTH_REQUIRED": "1",
+      "note": "Apple + Microsoft OAuth both enabled for Web2 login"
+    },
+    "wallet_connect": {
+      "NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID": "e7dcc355db79f180835a09c068438c95",
+      "NEXT_PUBLIC_ALLOWED_WALLET_CONNECTORS": "binance,kaia",
+      "NEXT_PUBLIC_WALLET_CONNECT_BINANCE_ENABLED": "implied by connector list"
+    },
+    "chain": {
+      "NEXT_PUBLIC_GRVT_CHAIN_ID": "326",
+      "NEXT_PUBLIC_GRVT_CHAIN_RPC_URL": "https://rpc.testnet.grvt.io",
+      "NEXT_PUBLIC_GRVT_CHAIN_NAME": "GRVT Exchange"
+    },
+    "kyc": {
+      "NEXT_PUBLIC_NEW_KYC_ENABLE": "1",
+      "NEXT_PUBLIC_KYC_MOBILE_ENABLED": "1"
+    },
+    "other": {
+      "NEXT_PUBLIC_ENABLE_SKIP_EMAIL_SETUP": "1",
+      "NEXT_PUBLIC_ENABLE_BUSINESS_ACCOUNT_SIGNUP": "1",
+      "NEXT_PUBLIC_MFA_TOTP_FORCED_FLAGS": "111111111"
+    }
+  },
+
+  "docs_recheck": {
+    "securekey": {
+      "source": "https://help.grvt.io/en/articles/10085106-what-is-a-grvt-native-securekey",
+      "key_points": [
+        "Native SecureKey is described as 'powered by Privy based on email'",
+        "Users sign trades via email OTP, no direct private key handling",
+        "Privy maintains SOC2 compliance",
+        "Self-custodial: only users can access private keys",
+        "CRITICAL limitation: 'GRVT Native SecureKeys are meant for signing within GRVT and not for receiving funds via deposits. Deposits to GRVT Native SecureKeys will not result in a credit to one's GRVT account.'"
+      ]
+    },
+    "wallet_login_signup": {
+      "source": "https://help.grvt.io/en/articles/13038840-how-to-log-in-sign-up-with-your-wallet-step-by-step-guide",
+      "key_points": [
+        "3-step wallet signup: Connect Wallet -> Connect Email -> Confirm Signature",
+        "Email is now required even for wallet-first signup",
+        "Signature does not send transaction or move funds",
+        "Email login now requires wallet connection (revamped security)"
+      ]
+    },
+    "trading_account_creation": {
+      "source": "https://help.grvt.io/en/articles/9610158-how-do-i-create-a-trading-account",
+      "key_points": [
+        "Requires registered SecureKey to sign the creation action",
+        "User chooses account name and margin type",
+        "Multiple trading accounts per user allowed"
+      ]
+    },
+    "api_keys": {
+      "source": "https://help.grvt.io/en/articles/9636561-how-do-i-generate-an-api-key",
+      "key_points": [
+        "Max 5 per Funding Account, max 5 per Trading Account",
+        "Each API key must be tagged to a valid Ethereum public address",
+        "Can 'Generate' a new wallet-key pair or 'Input' existing wallet",
+        "API key address cannot be a SecureKey or another API key's address",
+        "IP whitelisting available (up to 5 IPs)"
+      ]
+    },
+    "supported_wallets": {
+      "source": "https://help.grvt.io/en/articles/9630078-what-wallets-does-grvt-support-for-securekey-via-external-wallets",
+      "direct": ["MetaMask", "Coinbase Wallet", "Binance Wallet"],
+      "via_walletconnect": ["Trust Wallet", "Ledger Live", "OKX Wallet", "TokenPocket", "Bitget Wallet", "Uniswap Wallet", "Zerion", "Safe", "Crypto.com Onchain", "BitPay", "1inch Wallet", "Trezor Suite", "Phantom", "Argent"]
+    },
+    "tealstreet_integration": {
+      "source": "https://docs.tealstreet.io/docs/connect/grvt",
+      "key_points": [
+        "Confirms EIP-712 signing with Ethereum private keys for order authentication",
+        "Signer Address must be tagged to API key in GRVT UI before trading",
+        "Mainnet Chain ID 325, Testnet Chain ID 326",
+        "Builder fee authorization requires one-time browser wallet EIP-712 sign"
+      ]
+    },
+    "third_party_sdk": {
+      "source": "https://github.com/wezzcoetzee/grvt",
+      "key_points": [
+        "Community TypeScript SDK exists (not official)",
+        "Supports CCXT-style client with API key + private key + trading account ID",
+        "WebSocket support for real-time market data"
+      ]
+    }
+  },
+
+  "updated_assessment": {
+    "web2_friendliness": "Very high — the broadest in the sample. Email + Google + Microsoft + Apple OAuth for Web2 login, plus Dfns+Privy Native SecureKey for Web3 credential management without direct key handling.",
+    "api_order_usability_from_cold_wallet": "Still low. Cold wallet login returns 401 'wallet address not registered'. Full initialization chain required: Web2 Account -> SecureKey registration -> Trading Account creation -> Funding -> API Key generation -> Signer address tagging.",
+    "key_friction_points": [
+      "KYC is now required (NEW_KYC_ENABLE=1)",
+      "Cold wallet cannot even authenticate — must register through the frontend first",
+      "Wallet-first signup now requires connecting an email too",
+      "API key address must be different from SecureKey address",
+      "Native SecureKey cannot receive deposits — separate deposit address needed",
+      "MFA/TOTP appears to be forced (MFA_TOTP_FORCED_FLAGS=111111111)"
+    ],
+    "what_changed_vs_first_pass": "The underlying infrastructure is more sophisticated than first-pass described. It's not just 'Privy for email OTP' — it's a Dfns MPC wallet layer (passkeys, backup codes, WebAuthn) with Privy as the email auth frontend. Apple/Microsoft OAuth were not documented in first-pass. KYC requirement is newly confirmed. The core cold-wallet friction assessment remains unchanged.",
+    "comparison_to_other_platforms": "GRVT has the most elaborate Web2 onboarding in the sample (email + Google + Apple + Microsoft + Privy + Dfns), but also the most elaborate initialization chain for API-first access. It's the opposite extreme from platforms like Hyperliquid or Lighter where wallet-connect -> deposit -> trade is the entire path."
+  }
+}

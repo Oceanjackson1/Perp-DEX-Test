@@ -1,0 +1,40 @@
+{
+  "probe_date": "2026-03-21",
+  "wallet": "0x41Deec4e76e46c18719E90920C1efef370B7DB0A",
+  "default_subaccount": "0x41deec4e76e46c18719e90920c1efef370b7db0a64656661756c740000000000",
+  "gateway_without_compression": {
+    "status": 200,
+    "body": {
+      "reason": "Invalid compression headers: 'Accept-Encoding' must include 'gzip', 'br' or 'deflate'",
+      "block": true
+    }
+  },
+  "gateway_with_compression": {
+    "status": {
+      "status": "success",
+      "data": "active",
+      "request_type": "query_status"
+    },
+    "subaccount_info": {
+      "status": "success",
+      "exists": false,
+      "spot_count": 5,
+      "perp_count": 43
+    },
+    "linked_signer": {
+      "status": "success",
+      "linked_signer": "0x0000000000000000000000000000000000000000"
+    },
+    "symbols_sample": [
+      "BTC-PERP",
+      "USDC",
+      "SUI-PERP"
+    ]
+  },
+  "archive": {
+    "subaccounts": [],
+    "direct_deposit_address": {
+      "v1_address": "0x740a7e70262c143bb88d901001d141f986deda45"
+    }
+  }
+}

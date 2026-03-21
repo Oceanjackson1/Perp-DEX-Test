@@ -1,0 +1,67 @@
+{
+  "collected_at": "2026-03-21",
+  "platform": "Hyperliquid",
+  "docs_signals": {
+    "how_to_start_trading": {
+      "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/onboarding/how-to-start-trading",
+      "claims": [
+        "Users can trade with a normal defi wallet or by logging in with email",
+        "Email login creates a new blockchain address",
+        "Wallet users must click Enable Trading before depositing"
+      ]
+    },
+    "testnet_faucet": {
+      "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/onboarding/testnet-faucet",
+      "claims": [
+        "Testnet faucet requires the same address to have deposited on mainnet",
+        "Privy generates a different wallet address for mainnet and testnet for email login users",
+        "Email wallet can be exported from mainnet and imported into a wallet extension for testnet"
+      ]
+    },
+    "export_email_wallet": {
+      "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/onboarding/export-your-email-wallet",
+      "claims": [
+        "Users can click Export Email Wallet",
+        "Users can copy the private key",
+        "Users can import that key into a wallet extension"
+      ]
+    },
+    "connected_via_email_support": {
+      "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/support/faq/connectivity-issues/connected-via-email",
+      "claims": [
+        "Support page explicitly references Privy messages",
+        "Support page suggests exporting the email wallet to stop depending on email login"
+      ]
+    },
+    "nonces_and_api_wallets": {
+      "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/nonces-and-api-wallets",
+      "claims": [
+        "API wallets are also known as agent wallets",
+        "A master account can approve API wallets to sign on behalf of the master account or sub-accounts"
+      ]
+    },
+    "activation_gas_fee": {
+      "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/activation-gas-fee",
+      "claims": [
+        "New HyperCore accounts require 1 quote token of activation fees on first inbound transaction",
+        "Unactivated accounts cannot send CoreWriter actions"
+      ]
+    }
+  },
+  "runtime_probe": {
+    "mainnet_meta_live": true,
+    "testnet_meta_live": true,
+    "testnet_universe_count": 207,
+    "wallet_address": "0x41Deec4e76e46c18719E90920C1efef370B7DB0A",
+    "clearinghouse_state": {
+      "accountValue": "0.0",
+      "totalNtlPos": "0.0",
+      "totalMarginUsed": "0.0"
+    },
+    "open_orders": [],
+    "sub_accounts": null,
+    "signed_noop_result": "User or API Wallet 0x41deec4e76e46c18719e90920c1efef370b7db0a does not exist.",
+    "signed_market_open_result": "User or API Wallet 0x41deec4e76e46c18719e90920c1efef370b7db0a does not exist."
+  },
+  "conclusion": "Hyperliquid remains one of the cleaner pro-API designs in the sample because of its agent-wallet model, but a cold wallet still cannot go directly from readable account state to signed trading. The second-pass review confirms that email onboarding is an explicit Privy-backed embedded path with wallet export, while the actual write path still depends on Enable Trading, funded/activated HyperCore state, and testnet faucet gating."
+}

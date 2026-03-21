@@ -1,0 +1,53 @@
+{
+  "wallet_address": "0x41Deec4e76e46c18719E90920C1efef370B7DB0A",
+  "base_url": "https://api.hyperliquid-testnet.xyz",
+  "meta_probe": {
+    "ok": true,
+    "universe_count": 207
+  },
+  "pre_state": {
+    "ok": true,
+    "result": {
+      "status_code": 200,
+      "json": {
+        "marginSummary": {
+          "accountValue": "0.0",
+          "totalNtlPos": "0.0",
+          "totalRawUsd": "0.0",
+          "totalMarginUsed": "0.0"
+        },
+        "crossMarginSummary": {
+          "accountValue": "0.0",
+          "totalNtlPos": "0.0",
+          "totalRawUsd": "0.0",
+          "totalMarginUsed": "0.0"
+        },
+        "crossMaintenanceMarginUsed": "0.0",
+        "withdrawable": "0.0",
+        "assetPositions": [],
+        "time": 1774069382046
+      }
+    }
+  },
+  "pre_open_orders": {
+    "ok": true,
+    "result": {
+      "status_code": 200,
+      "json": []
+    }
+  },
+  "noop": {
+    "ok": true,
+    "result": {
+      "status": "err",
+      "response": "User or API Wallet 0x41deec4e76e46c18719e90920c1efef370b7db0a does not exist."
+    }
+  },
+  "market_open_btc_buy_0_001": {
+    "ok": true,
+    "result": {
+      "status": "err",
+      "response": "User or API Wallet 0x41deec4e76e46c18719e90920c1efef370b7db0a does not exist."
+    }
+  }
+}

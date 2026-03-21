@@ -1,0 +1,128 @@
+{
+  "platform": "Extended",
+  "second_pass_date": "2026-03-21",
+  "methodology": "official docs re-check + JS bundle analysis + live API probe (mainnet + testnet) + SDK review + web search",
+
+  "key_corrections": [
+    "First-pass said 'No embedded wallet evidence found' — this needs correction. The JS bundle contains 'dynamicEnvironmentId' (Dynamic.xyz wallet connection/embedded wallet SDK) and 'dynamicauth'. Dynamic.xyz supports email, social login, and embedded wallets — similar to Privy but a competing product. However, current docs still describe wallet-first onboarding only.",
+    "Extended now has 121 markets on mainnet (was implied to be much smaller in first-pass). Testnet has 31 markets.",
+    "Rhino.fi integration confirmed in JS config (rhinoApiKey, rhinoBaseUrl: https://api.rhino.fi) — this powers the Arbitrum cross-chain deposit path documented in the deposit docs.",
+    "USDC is the only collateral (not USDT), and Arbitrum deposits/withdrawals are supported for amounts under $100,000.",
+    "Python SDK has a 'drop-api-keys' branch, suggesting potential future auth model change.",
+    "The build ID (app-exchange-v0-64-18) confirms this is actively maintained and versioned."
+  ],
+
+  "first_pass_still_valid": [
+    "Wallet-first onboarding with two signatures (account creation + registration).",
+    "Dual auth: API key for read, API key + Stark signature for write.",
+    "Account and signing key pair stored locally in browser.",
+    "Up to 10 trading accounts per wallet.",
+    "Testnet on Sepolia still works — first-pass successfully onboarded, created API key, and placed signed IOC order.",
+    "First-pass probe results (account_id 16233, client_id 17059, IOC order accepted) remain valid.",
+    "Sentry instrumentation present."
+  ],
+
+  "live_probe_results": {
+    "mainnet_markets": {
+      "endpoint": "https://api.starknet.extended.exchange/api/v1/info/markets",
+      "status": 200,
+      "count": 121,
+      "note": "Significantly more markets than first-pass"
+    },
+    "testnet_markets": {
+      "endpoint": "https://api.starknet.sepolia.extended.exchange/api/v1/info/markets",
+      "status": 200,
+      "count": 31
+    },
+    "mainnet_btc_stats": {
+      "endpoint": "https://api.starknet.extended.exchange/api/v1/info/markets/BTC-USD/stats",
+      "status": 200,
+      "sample": {
+        "lastPrice": "70737",
+        "dailyVolume": "339090127.983440",
+        "openInterest": "106200486.203171",
+        "fundingRate": "0.000013"
+      },
+      "note": "Mainnet is live with significant volume"
+    },
+    "mainnet_user_accounts": {
+      "note": "Empty response for test wallet — account only exists on testnet (created during first-pass)"
+    },
+    "app_hosting": {
+      "url": "https://app.extended.exchange",
+      "hosting": "CloudFront + S3 (AWS)",
+      "security_headers": "x-xss-protection, x-frame-options: DENY, strict-transport-security, no-store cache-control"
+    },
+    "js_bundle_analysis": {
+      "file": "/assets/index-CvzKfSsU.js",
+      "size_bytes": 1776134,
+      "key_findings": {
+        "dynamic_xyz": "dynamicEnvironmentId: d4582476-d6fe-4ddb-bc66-2c0941e05456 — Dynamic.xyz wallet connection SDK",
+        "rhino_fi": "rhinoApiKey: PUBLIC-981a60fc-93a6-4cba-adbf-5ef9960a459b, rhinoBaseUrl: https://api.rhino.fi — cross-chain bridging",
+        "walletconnect": "10+ WalletConnect references in bundle",
+        "privy": "0 Privy references — NOT using Privy",
+        "sentry": "Sentry DSN present for error tracking",
+        "build_info": "app-exchange-v0-64-18-1fc8c2f90, runtimeEnv: starknet-prod"
+      }
+    }
+  },
+
+  "docs_recheck": {
+    "account_creation": {
+      "source": "https://docs.extended.exchange/extended-resources/account-operations/account-creation",
+      "key_points": [
+        "Supports all EVM and Starknet wallets",
+        "Two signatures required: account creation + registration",
+        "Key pair stored locally in browser",
+        "Up to 10 trading accounts per wallet"
+      ]
+    },
+    "api_auth": {
+      "source": "https://api.docs.extended.exchange/",
+      "key_points": [
+        "Read-only: API key only (X-Api-Key header)",
+        "Write: API key + Stark signature (SNIP12 / EIP-712 for Starknet)",
+        "API keys from UI API management page, per sub-account",
+        "Rate limit: 1000 req/min default tier",
+        "User-Agent header mandatory",
+        "No email/social login in API docs"
+      ]
+    },
+    "deposits_withdrawals": {
+      "source": "https://docs.extended.exchange/starkex-specific-docs/deposits-and-withdrawals",
+      "key_points": [
+        "USDC only collateral",
+        "Ethereum + Arbitrum (under $100k) supported",
+        "No minimum deposit",
+        "Zero deposit fees currently",
+        "Fast withdrawal: ~15 min, $50k/12h limit",
+        "Slow withdrawal: up to 12h, no limit, Ethereum only"
+      ]
+    },
+    "python_sdk": {
+      "source": "https://github.com/x10xchange/python_sdk",
+      "package": "x10-python-trading-starknet",
+      "branches": ["starknet (main)", "starkex (legacy)", "drop-api-keys (experimental)"],
+      "key_points": [
+        "Rust-accelerated Stark crypto (cross-platform)",
+        "Full order management, account management, transfers, market info",
+        "TESTNET_CONFIG and MAINNET_CONFIG included",
+        "Requires: api_key, public_key, private_key, vault from API management"
+      ]
+    }
+  },
+
+  "updated_assessment": {
+    "web2_friendliness": "Low-medium, but higher than first-pass described. Dynamic.xyz integration exists in the JS bundle (supporting email/social/embedded wallets), though not yet surfaced in docs or visibly in the UI.",
+    "api_order_usability_from_cold_wallet": "High on testnet — first-pass already proved full end-to-end flow (onboard → API key → signed IOC order). Mainnet requires real USDC deposit first.",
+    "key_friction_points": [
+      "Stark key material derivation is heavier than standard EVM signing",
+      "Need both API key AND Stark signature for write operations",
+      "Key pair stored in browser only (not server-side) — need SDK for programmatic access",
+      "Mainnet requires USDC deposit before trading",
+      "API management page (UI) needed to get API key details"
+    ],
+    "what_changed_vs_first_pass": "Dynamic.xyz wallet SDK is present (first-pass said no embedded wallet). Market count grew to 121 mainnet. Rhino.fi cross-chain bridging confirmed. 'drop-api-keys' SDK branch hints at potential future auth simplification. Docs now explicitly mention Arbitrum support. Core auth model and testnet onboarding flow unchanged.",
+    "comparison_to_other_platforms": "Extended remains the most API-complete platform in the sample for serious integrators — it's the only one where first-pass successfully completed a full write-path probe (onboard → key → signed order). The auth stack is heavy (EVM + Stark + API key), but it's well-documented and fully scriptable."
+  }
+}

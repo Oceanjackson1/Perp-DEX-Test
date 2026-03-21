@@ -1,0 +1,129 @@
+{
+  "platform": "MYX Finance",
+  "research_date": "2026-03-21",
+  "methodology": "official docs (GitBook) + live API probe + JS bundle analysis + web search",
+
+  "overview": {
+    "chains": ["BNB Chain", "Arbitrum", "Linea", "opBNB"],
+    "collateral": "USDC-margined",
+    "mechanism": "Matching Pool Mechanism (MPM) — zero-slippage by internally matching long/short positions",
+    "max_leverage": "50x",
+    "token": "MYX (launched, rallied 1400%)",
+    "v2_status": "Strategic funding led by Consensys (Feb 2026), V2 = Modular Derivative Settlement Engine, no launch date yet"
+  },
+
+  "onboarding": {
+    "model": "Dual-path: traditional wallet connection OR social login via Particle Network",
+    "seamless_key": {
+      "description": "MYX proprietary delegated trading key — functions as an API key for programmatic use",
+      "creation_methods": ["Social login (Particle Network)", "Phone number", "Email", "Existing crypto wallet"],
+      "how_it_works": "Master wallet signs password message → seed generates new EOA key pair → private key encrypted with password and stored locally",
+      "gas_free": "MYX relayer sponsors gas, fees deducted in USDC based on weekly average gas costs",
+      "non_custodial": "Seamless Key carries no assets. All funds remain in Master wallet. USDC auth via ERC20 Permit.",
+      "security": "Order nonce system prevents replay. Time-restricted validity. Session auto-destructs on expiration."
+    },
+    "new_user_flow": [
+      "1. Create wallet via social login / phone / email (Particle Network)",
+      "2. Purchase USDC via credit card (built-in Buy function)",
+      "3. Create Seamless Key for trading"
+    ]
+  },
+
+  "api": {
+    "documented_rest": {
+      "base_url": "https://api.myx.finance",
+      "endpoints": {
+        "GET /v2/quote/market/contracts": "List all 37 trading pairs (no auth)",
+        "GET /v2/quote/market/contract_specs": "Trading pair description (no auth)"
+      },
+      "note": "Only 2 public REST endpoints documented. No authenticated trading API via REST — all trading is on-chain via smart contracts or Seamless Key."
+    },
+    "smart_contract_api": {
+      "contracts": ["Router.sol", "Pool.sol", "FeeCollector.sol", "Multicall.sol"],
+      "key_methods": [
+        "createIncreaseOrder", "createIncreaseOrderWithTpSl", "createDecreaseOrder",
+        "cancelOrder", "cancelPositionOrders",
+        "addLiquidity", "removeLiquidity"
+      ],
+      "note": "All trading is on-chain. No off-chain REST order API."
+    },
+    "no_websocket": true,
+    "no_swagger": true,
+    "no_sdk": true
+  },
+
+  "v2_upgrade": {
+    "funding": "Strategic round led by Consensys (Feb 2026), Consensys Mesh + Systemic Ventures as co-investors",
+    "architecture": "Modular Derivative Settlement Engine — other platforms can build on top",
+    "features": [
+      "Account Abstraction: EIP-4337 + EIP-7702 for gasless one-click trading",
+      "Chainlink Permissionless Oracle Stack",
+      "Dynamic Margin System (up to 50x)",
+      "Chain Abstraction: collateral recognized across 20+ networks",
+      "Modular Settlement Layer: prevents liquidity fragmentation"
+    ],
+    "launch_date": "Not announced"
+  },
+
+  "live_probe_results": {
+    "api_contracts": {
+      "endpoint": "https://api.myx.finance/v2/quote/market/contracts",
+      "status": 200,
+      "count": 37,
+      "note": "Live, returns all perpetual pairs across BNB Chain, Arbitrum, Linea"
+    },
+    "api_btc_spec": {
+      "endpoint": "https://api.myx.finance/v2/quote/market/contract_specs?ticker_id=BTC-USDC",
+      "status": 200,
+      "body": {"contract_type": "Vanilla", "contract_price_currency": "USDC"}
+    },
+    "app_csp": {
+      "url": "https://app.myx.finance",
+      "csp": "Only upgrade-insecure-requests (minimal CSP)",
+      "note": "No vendor-specific CSP domains — wallet signals are in JS bundles instead"
+    },
+    "js_bundle_signals": {
+      "particle_network": "PARTICLE references — social login / embedded wallet provider",
+      "biconomy": "BICONOMY references — account abstraction / gasless relayer",
+      "walletconnect": "WALLETCONNECT — wallet connection",
+      "connectkit": "CONNECTKIT — wallet connection UI",
+      "rainbowkit": "RainbowKit — wallet connection UI",
+      "dynamic_xyz": "Dynamic references — wallet infrastructure",
+      "magic_link": "MAGIC — email-based wallet",
+      "safe": "SAFE — smart accounts (Gnosis Safe)",
+      "wagmi": "WAGMI — React hooks for Ethereum",
+      "seamless": "SEAMLESS — their proprietary Seamless Key system",
+      "eip_refs": "4337, 7702 — account abstraction EIP references"
+    }
+  },
+
+  "github": {
+    "repo": "https://github.com/myx-protocol/myx-contracts",
+    "language": "99.6% Solidity",
+    "license": "BUSL-1.1",
+    "last_updated": "2024-03-06",
+    "note": "Smart contracts only, no consumer SDK"
+  },
+
+  "audits": ["PeckShield (2 reports)", "SlowMist (5 phased audits)"],
+
+  "assessment": {
+    "web2_friendliness": "High — Particle Network enables social login / phone / email, Seamless Key removes gas friction, built-in USDC purchase via credit card.",
+    "api_order_usability": "Low for REST API (only 2 public market data endpoints). Trading is entirely on-chain via smart contracts or Seamless Key. No off-chain REST trading API.",
+    "key_friction_points": [
+      "No off-chain trading API — all orders are on-chain smart contract calls",
+      "Seamless Key acts like an API key but is actually a delegated on-chain signer",
+      "No SDK for developers",
+      "V2 with full account abstraction not yet launched",
+      "Smart contract integration requires Solidity knowledge"
+    ],
+    "unique_strengths": [
+      "Zero-slippage via MPM (Matching Pool Mechanism)",
+      "Particle Network social login with Seamless Key makes it very Web2-friendly for end users",
+      "Biconomy gasless infrastructure",
+      "Multi-chain (BNB, Arbitrum, Linea, opBNB)",
+      "V2 backed by Consensys, will become modular settlement engine",
+      "37 trading pairs"
+    ]
+  }
+}

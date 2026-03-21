@@ -1,0 +1,49 @@
+{
+  "probe_date": "2026-03-21",
+  "public_funding_rate": {
+    "status": 200,
+    "body": {
+      "code": "SUCCESS",
+      "data": []
+    }
+  },
+  "private_get_position_transaction_page": {
+    "no_headers": {
+      "status": 200,
+      "body": {
+        "code": "GATEWAY_HEADER_REQUIRED",
+        "msg": "header required : 'X-edgeX-Api-Key'"
+      }
+    },
+    "api_key_only": {
+      "status": 200,
+      "body": {
+        "code": "GATEWAY_HEADER_REQUIRED",
+        "msg": "header required : 'X-edgeX-Passphrase'"
+      }
+    },
+    "api_key_and_passphrase": {
+      "status": 200,
+      "body": {
+        "code": "GATEWAY_HEADER_REQUIRED",
+        "msg": "header required : 'X-edgeX-Signature'"
+      }
+    },
+    "fake_full_header_stack": {
+      "status": 200,
+      "body": {
+        "code": "INVALID_ACCOUNT_ID",
+        "msg": "invalid accountId : 543429922991899150"
+      }
+    }
+  },
+  "private_register_account": {
+    "no_headers": {
+      "status": 200,
+      "body": {
+        "code": "GATEWAY_HEADER_REQUIRED",
+        "msg": "header required : 'X-edgeX-Api-Key'"
+      }
+    }
+  }
+}

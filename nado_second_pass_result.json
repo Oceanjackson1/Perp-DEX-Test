@@ -1,0 +1,96 @@
+{
+  "platform": "Nado",
+  "research_date": "2026-03-21",
+  "status": "completed",
+  "key_takeaway": "Nado remains firmly wallet-first and non-embedded at onboarding, but its current linked-signer model is more productized than a generic delegate-key story: the UI explicitly frames it as 1-Click Trading with a browser-managed signer.",
+  "docs": {
+    "core_concepts": {
+      "url": "https://docs.nado.xyz/developer-resources/get-started/core-concepts",
+      "findings": [
+        "The docs explicitly say there are no API keys and no username or password.",
+        "Authentication is wallet-signature based, with EIP-712 for writes and no signatures for read queries.",
+        "The docs tell CEX users to think in terms of wallet signatures and subaccounts rather than account plus API key."
+      ]
+    },
+    "quickstart": {
+      "url": "https://docs.nado.xyz/developer-resources/get-started/quickstart",
+      "findings": [
+        "Any EVM-compatible wallet works, but the quickstart is explicitly wallet-and-private-key based.",
+        "The quickstart says subaccounts are created automatically on the first deposit and recommends UI faucet / UI deposit for testnet."
+      ]
+    },
+    "first_deposit": {
+      "url": "https://docs.nado.xyz/developer-resources/get-started/first-deposit",
+      "findings": [
+        "The docs say there is no separate account-creation step: the first deposit creates the subaccount.",
+        "The first deposit guide now clearly distinguishes three methods: UI deposit, on-chain contract call, and direct deposit.",
+        "For developers, the docs describe on-chain contract call as the recommended programmatic deposit method."
+      ]
+    },
+    "linked_signers": {
+      "url": "https://docs.nado.xyz/developer-resources/get-started/linked-signers",
+      "findings": [
+        "The docs explicitly say linked signers are Nado's 1-Click Trading feature.",
+        "The UI's 1-Click Trading flow is described as generating a random linked-signer key and storing it encrypted in the browser.",
+        "Linked signers are optional, one per subaccount, and the docs say you can sign with either the main wallet or the linked signer.",
+        "Linked signer setup still requires the subaccount to already exist."
+      ]
+    },
+    "endpoints": {
+      "url": "https://docs.nado.xyz/developer-resources/api/endpoints",
+      "findings": [
+        "The docs now list gateway, archive, subscriptions, trigger, and v2 endpoints clearly for both mainnet and testnet."
+      ]
+    },
+    "linked_signer_query": {
+      "url": "https://docs.nado.xyz/developer-resources/api/gateway/queries/linked-signer",
+      "findings": [
+        "The linked_signer query returns the zero address when no signer is configured."
+      ]
+    }
+  },
+  "runtime_checks": {
+    "app_runtime": {
+      "url": "https://app.nado.xyz",
+      "signals": [
+        "The app currently redirects from / to /perpetuals.",
+        "The public /perpetuals page returned 200.",
+        "A lightweight HTML probe did not expose obvious email-login or embedded-wallet vendor markers."
+      ]
+    },
+    "gateway_status": {
+      "url": "https://gateway.test.nado.xyz/v1/query",
+      "status": "success",
+      "data": "active"
+    },
+    "gateway_subaccount_info": {
+      "subaccount": "0x41deec4e76e46c18719e90920c1efef370b7db0a64656661756c740000000000",
+      "exists": false,
+      "spot_count": 5,
+      "perp_count": 43
+    },
+    "gateway_linked_signer": {
+      "linked_signer": "0x0000000000000000000000000000000000000000"
+    },
+    "archive_subaccounts": {
+      "subaccounts": []
+    },
+    "archive_direct_deposit_address": {
+      "v1_address": "0x740a7e70262c143bb88d901001d141f986deda45"
+    },
+    "gateway_http_requirement": {
+      "finding": "A raw curl without compression headers was rejected; curl --compressed succeeded."
+    }
+  },
+  "interpretation": [
+    "Nado still does not look like an embedded-wallet or email-first venue. The initial onboarding model remains wallet-first and deposit-first.",
+    "But the current docs make the post-onboarding UX story clearer than the first pass did: linked signers are explicitly productized as 1-Click Trading rather than treated as a purely developer-facing delegation primitive.",
+    "This means Nado is more polished on trading convenience after setup than a simple raw-wallet-first label suggests, even though the cold-start path is still not Web2-friendly.",
+    "The live probe still confirms the hard boundary: the default subaccount is deterministic and queryable before funding, but it does not exist until the first deposit lands."
+  ],
+  "assessment": {
+    "web2_friendliness": "low at onboarding, medium after deposit if 1-Click Trading is enabled",
+    "api_order_usability": "medium",
+    "key_friction": "No API-key abstraction layer, first deposit is a hard prerequisite, and linked-signer setup only becomes available after subaccount creation."
+  }
+}

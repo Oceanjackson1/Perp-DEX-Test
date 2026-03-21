@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+.pydeps311/
+.pydeps_hl/
+
+# Sensitive files - wallet private keys
+evm_wallet_*.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Swagger UI bundle (large, downloaded artifact)
+ethereal_swagger_ui_init.js

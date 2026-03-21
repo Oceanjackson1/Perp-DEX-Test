@@ -1,0 +1,49 @@
+{
+  "probe_date": "2026-03-21",
+  "wallet": "0x41Deec4e76e46c18719E90920C1efef370B7DB0A",
+  "order_book_details": {
+    "status": 200,
+    "market_sample": [
+      "JUP",
+      "DOLO",
+      "JTO"
+    ]
+  },
+  "accounts_by_l1_address": {
+    "status": 200,
+    "body": {
+      "code": 21100,
+      "message": "account not found"
+    }
+  },
+  "create_intent_address": {
+    "status": 200,
+    "body": {
+      "code": 200,
+      "intent_address": "0x59B28B2c5414da224f32146895b95cCD283D75e9"
+    }
+  },
+  "next_nonce": {
+    "account_index_0_api_key_2": {
+      "status": 200,
+      "body": {
+        "code": 200,
+        "nonce": 0
+      }
+    },
+    "account_index_999999999_api_key_2": {
+      "status": 200,
+      "body": {
+        "code": 200,
+        "nonce": 0
+      }
+    },
+    "account_index_123456789_api_key_255": {
+      "status": 200,
+      "body": {
+        "code": 21110,
+        "message": "invalid api key index"
+      }
+    }
+  }
+}

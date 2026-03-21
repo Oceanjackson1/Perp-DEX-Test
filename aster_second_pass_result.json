@@ -1,0 +1,94 @@
+{
+  "collected_at": "2026-03-21",
+  "platform": "Aster",
+  "docs_signals": {
+    "wallet_login": {
+      "url": "https://docs.asterdex.com/product/help/how-to-login-to-aster-with-your-wallet",
+      "claims": [
+        "Wallet login is officially supported",
+        "WalletConnect is supported",
+        "Connecting on BNB Chain requires at least 0.001 BNB"
+      ]
+    },
+    "email_login": {
+      "url": "https://docs.asterdex.com/product/help/how-to-login-to-aster-with-your-email-address",
+      "claims": [
+        "Email login is officially supported",
+        "A new blockchain address is created for the email address",
+        "Email-login deposits are currently limited to USDT on Arbitrum",
+        "After deposit, the email-created address can be used as collateral on Aster Pro"
+      ]
+    },
+    "pro_api_overview": {
+      "url": "https://docs.asterdex.com/product/aster-perpetuals/api",
+      "claims": [
+        "Aster Pro API allows users to operate securely using API keys",
+        "Users should first create an API key, then use API documentation"
+      ]
+    },
+    "create_api": {
+      "url": "https://docs.asterdex.com/product/aster-perpetuals/api/how-to-create-an-api",
+      "claims": [
+        "Users go to API management and connect wallet",
+        "Users click Create API and receive API key plus secret key",
+        "Each account can create up to 30 API keys",
+        "IP binding is recommended"
+      ]
+    },
+    "api_management_page": {
+      "url": "https://www.asterdex.com/en/api-management",
+      "claims": [
+        "API management page is live",
+        "Each account can create up to 30 API keys"
+      ]
+    },
+    "direct_api_general_info": {
+      "url": "https://asterdex.github.io/aster-api-website/futures/general-info/",
+      "claims": [
+        "Some endpoints require an API key",
+        "API keys are passed via X-MBX-APIKEY header",
+        "SIGNED endpoints use HMAC SHA256",
+        "API keys can be permission-scoped"
+      ]
+    },
+    "aster_code_integration_flow": {
+      "url": "https://asterdex.github.io/aster-api-website/asterCode/integration-flow/",
+      "claims": [
+        "Builder address must be registered and have at least 100 ASTER",
+        "Builder backend generates a per-user Agent/API Wallet signer",
+        "Users approve Agent and Builder separately or together",
+        "Builder places orders on behalf of the user through fapi/v3 endpoints"
+      ]
+    }
+  },
+  "runtime_probe": {
+    "public_endpoints": {
+      "ping": {
+        "url": "https://fapi.asterdex.com/fapi/v1/ping",
+        "status": 200,
+        "body": "{}"
+      },
+      "time": {
+        "url": "https://fapi.asterdex.com/fapi/v1/time",
+        "status": 200
+      },
+      "exchangeInfo": {
+        "url": "https://fapi.asterdex.com/fapi/v1/exchangeInfo",
+        "status": 200
+      }
+    },
+    "api_management_page": {
+      "url": "https://www.asterdex.com/en/api-management",
+      "status": 200
+    },
+    "aster_code_private_probe": {
+      "artifact": "aster_private_probe_result.json",
+      "result": [
+        "missing nonce",
+        "missing user",
+        "missing signature"
+      ]
+    }
+  },
+  "conclusion": "Aster currently exposes a standard self-serve Pro API key path for direct traders, and that should not be conflated with the separate Aster Code builder/agent delegation stack. The direct API path is materially simpler than the first-pass builder-only framing, while the delegated builder flow remains a distinct higher-friction integration mode."
+}

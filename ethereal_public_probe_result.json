@@ -1,0 +1,28 @@
+{
+  "probe_date": "2026-03-21",
+  "api_host": "https://api.ethereal.trade",
+  "wallet": "0x41Deec4e76e46c18719E90920C1efef370B7DB0A",
+  "product": {
+    "status": 200,
+    "sample_display_tickers": [
+      "BTC-USD",
+      "ETH-USD",
+      "SOL-USD"
+    ]
+  },
+  "subaccount": {
+    "status": 200,
+    "body": {
+      "data": [],
+      "hasNext": false
+    }
+  },
+  "linked_signer": {
+    "status": 404,
+    "body": {
+      "message": "Signer not found: 0x41deec4e76e46c18719e90920c1efef370b7db0a",
+      "error": "Not Found",
+      "statusCode": 404
+    }
+  }
+}

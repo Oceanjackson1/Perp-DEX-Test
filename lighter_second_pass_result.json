@@ -1,0 +1,139 @@
+{
+  "platform": "Lighter",
+  "research_date": "2026-03-21",
+  "status": "completed",
+  "key_takeaway": "Lighter remains a strongly API-native, wallet-first venue: onboarding still starts from an Ethereum wallet and a credited deposit, not from an email or embedded-wallet path, but once the account_index exists the platform exposes a mature API-key, auth-token, and sub-account stack.",
+  "docs": {
+    "trading_api": {
+      "url": "https://docs.lighter.xyz/trading/api",
+      "findings": [
+        "The product docs still say users need an Ethereum wallet to register a main account.",
+        "The docs explicitly separate main accounts and sub-accounts.",
+        "Each account or sub-account may register up to 256 API keys."
+      ]
+    },
+    "get_started": {
+      "url": "https://apidocs.lighter.xyz/docs/get-started",
+      "findings": [
+        "The get-started guide tells developers to discover their account_index from an Ethereum address before initializing the signer.",
+        "It says API-key indices 0 and 1 are reserved for the web and mobile interfaces, while programmatic keys use 2-254.",
+        "Authenticated REST and websocket access is built around auth tokens generated from API private keys."
+      ]
+    },
+    "create_accounts_programmatically": {
+      "url": "https://apidocs.lighter.xyz/docs/create-accounts-programmatically",
+      "findings": [
+        "The docs now make the cold-start path explicit: to create a Lighter account, you simply deposit assets to Lighter.",
+        "Only after the deposit is credited does a master account_index get generated.",
+        "The docs then direct users to query account_index from contract or API and only afterward move on to API-key setup."
+      ]
+    },
+    "deposits_transfers_withdrawals": {
+      "url": "https://apidocs.lighter.xyz/docs/deposits-transfers-and-withdrawals",
+      "findings": [
+        "Ethereum mainnet deposits are contract-driven and require an L1 wallet.",
+        "The docs expose createIntentAddress as a pre-account deposit path for USDC from supported EVM chains via CCTP.",
+        "Fast withdrawals and transfers to other L1 addresses still require the wallet's Ethereum private key."
+      ]
+    },
+    "api_keys": {
+      "url": "https://apidocs.lighter.xyz/docs/api-keys",
+      "findings": [
+        "The docs describe a full API-key model with per-key public/private key pairs and per-key nonce management.",
+        "Canonical auth tokens can last up to 8 hours, and read-only auth tokens can last from 1 day to 10 years.",
+        "Generating API keys does not require the L1 private key, but associating them with the account still does."
+      ]
+    },
+    "account_types": {
+      "url": "https://apidocs.lighter.xyz/docs/account-types",
+      "findings": [
+        "The platform still separates Standard and Premium accounts.",
+        "Premium accounts are explicitly positioned for HFT and come with materially different sendTx/sendTxBatch limits and latency."
+      ]
+    },
+    "rate_limits": {
+      "url": "https://apidocs.lighter.xyz/docs/rate-limits",
+      "findings": [
+        "Standard accounts are limited to 60 REST requests per rolling minute.",
+        "Premium accounts use a weighted model and get a separate transaction bucket for sendTx and sendTxBatch.",
+        "The docs say limits apply at both IP and L1-address level, depending on endpoint type."
+      ]
+    },
+    "multi_signature_wallets": {
+      "url": "https://apidocs.lighter.xyz/docs/multi-signature-wallets",
+      "findings": [
+        "The docs still support multi-signature and smart-wallet usage, but note feature differences where Ethereum-private-key-dependent actions are unavailable.",
+        "Secure withdrawal remains available, while some flows such as transfers cannot be completed the same way."
+      ]
+    }
+  },
+  "runtime_checks": {
+    "app_runtime": {
+      "url": "https://app.lighter.xyz",
+      "signals": [
+        "The app returned 200.",
+        "The visible UI still says Connect Wallet and Connect Wallet to Trade.",
+        "A lightweight HTML and text probe did not expose obvious email, social-login, or embedded-wallet vendor markers."
+      ]
+    },
+    "public_market_data": {
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/orderBookDetails",
+      "status": 200,
+      "finding": "Live market metadata is publicly accessible."
+    },
+    "accounts_by_l1_address_dead_address": {
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/accountsByL1Address",
+      "request": {
+        "l1_address": "0x000000000000000000000000000000000000dEaD"
+      },
+      "response": {
+        "code": 21100,
+        "message": "account not found"
+      }
+    },
+    "create_intent_address_dead_address": {
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/createIntentAddress",
+      "request": {
+        "chain_id": 42161,
+        "from_addr": "0x000000000000000000000000000000000000dEaD",
+        "amount": 0,
+        "is_external_deposit": true
+      },
+      "response": {
+        "code": 200,
+        "intent_address": "0xffA9070EC9e9755dE66D7Ec473CA17C52C89BFBF"
+      }
+    },
+    "unauthenticated_change_account_tier": {
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/changeAccountTier",
+      "response": {
+        "code": 20013,
+        "message": "invalid auth"
+      }
+    },
+    "public_apikey_metadata": {
+      "endpoint": "https://mainnet.zklighter.elliot.ai/api/v1/apikeys?account_index=0&api_key_index=255",
+      "finding": "The endpoint returned public API-key metadata such as api_key_index, nonce, public_key, and transaction_time for an existing account without an auth token."
+    },
+    "previous_probe_artifact": {
+      "file": "/Users/ocean/Documents/Perp DEX测试/lighter_probe_result.json",
+      "findings": [
+        "nextNonce returned nonce 0 for account_index 0 with api_key_index 2.",
+        "nextNonce also returned nonce 0 for a clearly arbitrary large account_index.",
+        "api_key_index 255 on nextNonce returned invalid api key index."
+      ]
+    }
+  },
+  "interpretation": [
+    "Lighter still does not present as an email-first or embedded-wallet-first venue. The live app and current docs both reinforce a wallet-first posture.",
+    "The current docs make the cold-start path more explicit than a generic API-first reading would: deposit first, wait for crediting, then obtain account_index, then associate API keys, then generate auth tokens and trade.",
+    "The existence of createIntentAddress before account creation confirms that the deposit rail is available before the exchange account exists.",
+    "The live apikeys query shows that some API-key metadata is publicly queryable, but that does not reduce the real bootstrap friction because trading still requires account ownership, API-key association, and signer/auth-token generation.",
+    "nextNonce should still not be treated as a trustworthy onboarding signal, because public responses can look valid even when they do not prove that a usable trading account has been bootstrapped."
+  ],
+  "assessment": {
+    "web2_friendliness": "low",
+    "api_order_usability": "high after account creation",
+    "key_friction": "A user still needs an Ethereum wallet, a credited deposit, a generated account_index, and L1-authorized API-key association before the mature API stack becomes usable."
+  }
+}

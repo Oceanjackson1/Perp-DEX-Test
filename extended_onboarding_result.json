@@ -1,0 +1,61 @@
+{
+  "wallet_address": "0x41Deec4e76e46c18719E90920C1efef370B7DB0A",
+  "testnet_host": "https://api.starknet.sepolia.extended.exchange",
+  "api_base_url": "https://api.starknet.sepolia.extended.exchange/api/v1",
+  "onboard": {
+    "ok": true,
+    "account": {
+      "id": 16233,
+      "description": "Main account",
+      "account_index": 0,
+      "status": "ACTIVE",
+      "l2_key": "0x51477b6e58c98344ded9a8e307479e195a796e49c3940f95cb21b2913d7a585",
+      "l2_vault": 513234,
+      "bridge_starknet_address": "0x067779645d55f0fd4461e918b9ceba156ed42ce52fafcf72e472964b696a2b94"
+    },
+    "l2_public_key": "0x51477b6e58c98344ded9a8e307479e195a796e49c3940f95cb21b2913d7a585"
+  },
+  "get_accounts": {
+    "ok": true,
+    "count": 1,
+    "accounts": [
+      {
+        "account": {
+          "id": 16233,
+          "description": "Main account",
+          "account_index": 0,
+          "status": "ACTIVE",
+          "l2_key": "0x51477b6e58c98344ded9a8e307479e195a796e49c3940f95cb21b2913d7a585",
+          "l2_vault": 513234,
+          "bridge_starknet_address": "0x067779645d55f0fd4461e918b9ceba156ed42ce52fafcf72e472964b696a2b94"
+        },
+        "l2_public_key": "0x51477b6e58c98344ded9a8e307479e195a796e49c3940f95cb21b2913d7a585"
+      }
+    ]
+  },
+  "create_account_api_key": {
+    "ok": true,
+    "api_key": {
+      "prefix": "4bd4dd51",
+      "suffix": "a5a9",
+      "length": 32
+    },
+    "account_id": 16233
+  },
+  "private_get_account": {
+    "ok": true,
+    "account": {
+      "id": 16233,
+      "description": "Main account",
+      "account_index": 0,
+      "status": "ACTIVE",
+      "l2_key": "0x51477b6e58c98344ded9a8e307479e195a796e49c3940f95cb21b2913d7a585",
+      "l2_vault": 513234,
+      "bridge_starknet_address": "0x067779645d55f0fd4461e918b9ceba156ed42ce52fafcf72e472964b696a2b94"
+    }
+  },
+  "private_get_open_orders": {
+    "ok": true,
+    "count": 0
+  }
+}

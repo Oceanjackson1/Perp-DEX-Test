@@ -1,0 +1,176 @@
+{
+  "platform": "Ethereal",
+  "second_pass_date": "2026-03-21",
+  "methodology": "official docs re-check + CSP header extraction + live API probe (mainnet + testnet) + OpenAPI spec analysis + HTML source inspection",
+
+  "key_corrections": [
+    "First-pass said 'No embedded wallet evidence found' — this is WRONG. The CSP headers from app.ethereal.trade clearly contain auth.privy.io in frame-src, and HTML source contains 'funkit' (Fun.xyz embedded wallet/onboarding SDK). Ethereal IS integrating embedded wallet infrastructure, even if it's not yet prominently surfaced in docs.",
+    "CSP also reveals MoonPay integration (static.moonpay.com, api.moonpay.com) — fiat on-ramp is present or in development.",
+    "Testnet funding has become MORE restrictive, not less. First-pass said 'users submit an access request through the app, and the testnet distribution system funds accounts in under 24 hours.' Current docs now say there is no public faucet — developers must 'Reach out to a team member Discord in #developer-support' for testnet funds.",
+    "WebSocket has been upgraded: native WebSocket v2 at wss://ws2.ethereal.trade/v1/stream is now primary, old Socket.io endpoint is deprecated.",
+    "API surface is larger than first-pass captured: 49 endpoints total, including referral system, points, whitelist, rate-limit config, maintenance status, dry-run orders.",
+    "Linked signer quota system now confirmed: configurable max per time period, currently 5 per 7 days across all subaccounts, queryable via /linked-signer/quota."
+  ],
+
+  "first_pass_still_valid": [
+    "Wallet-first onboarding model — no email/social login path documented in API or developer guides.",
+    "All trading through subaccounts, first deposit creates subaccount.",
+    "Default subaccount name 'primary' (bytes32 encoded) is still recommended.",
+    "EIP-712 per-action signing model (no JWT/API key alternative).",
+    "Linked signers cannot withdraw, expire after 90 days inactivity.",
+    "Fresh wallet returns empty subaccounts and 404 Signer not found.",
+    "8 distinct signed action types confirmed via /v1/rpc/config."
+  ],
+
+  "live_probe_results": {
+    "mainnet_products": {
+      "endpoint": "https://api.ethereal.trade/v1/product",
+      "status": 200,
+      "count": 15,
+      "note": "Up from first-pass. Public, no auth."
+    },
+    "testnet_products": {
+      "endpoint": "https://api.etherealtest.net/v1/product",
+      "status": 200,
+      "count": 17,
+      "note": "Testnet has more products than mainnet."
+    },
+    "mainnet_subaccounts": {
+      "endpoint": "https://api.ethereal.trade/v1/subaccount?sender=0x41Deec4e76e46c18719E90920C1efef370B7DB0A",
+      "status": 200,
+      "body": {"data": [], "hasNext": false},
+      "note": "Still no subaccounts for test wallet. Consistent with first-pass."
+    },
+    "testnet_subaccounts": {
+      "endpoint": "https://api.etherealtest.net/v1/subaccount?sender=0x41Deec4e76e46c18719E90920C1efef370B7DB0A",
+      "status": 200,
+      "body": {"data": [], "hasNext": false},
+      "note": "No testnet subaccounts either."
+    },
+    "mainnet_linked_signer": {
+      "endpoint": "https://api.ethereal.trade/v1/linked-signer/address/0x41Deec4e76e46c18719E90920C1efef370B7DB0A",
+      "status": 404,
+      "body": {"message": "Signer not found"},
+      "note": "Consistent with first-pass."
+    },
+    "mainnet_rpc_config": {
+      "endpoint": "https://api.ethereal.trade/v1/rpc/config",
+      "status": 200,
+      "domain": {
+        "name": "Ethereal",
+        "version": "1",
+        "chainId": 5064014,
+        "verifyingContract": "0xB3cDC82035C495c484C9fF11eD5f3Ff6d342e3cc"
+      },
+      "signature_types": ["LinkSigner", "TradeOrder", "InitiateWithdraw", "RevokeLinkedSigner", "EIP712Auth", "CancelOrder", "RefreshLinkedSigner", "ExtendLinkedSigner"]
+    },
+    "testnet_rpc_config": {
+      "endpoint": "https://api.etherealtest.net/v1/rpc/config",
+      "status": 200,
+      "domain": {
+        "name": "Ethereal",
+        "version": "1",
+        "chainId": 13374202,
+        "verifyingContract": "0x1F0327A80e43FEF1Cd872DC5d38dCe4A165c0643"
+      }
+    },
+    "openapi_spec": {
+      "endpoint": "https://api.ethereal.trade/openapi.json",
+      "total_endpoints": 49,
+      "categories": {
+        "market_data": ["/v1/product", "/v1/product/{id}", "/v1/product/market-price", "/v1/product/market-liquidity", "/v1/funding", "/v1/funding/projected", "/v1/funding/projected-rate"],
+        "account": ["/v1/subaccount", "/v1/subaccount/all", "/v1/subaccount/balance", "/v1/subaccount/{id}"],
+        "trading": ["/v1/order", "/v1/order/cancel", "/v1/order/dry-run", "/v1/order/fill", "/v1/order/trade", "/v1/order/{id}"],
+        "positions": ["/v1/position", "/v1/position/active", "/v1/position/fill", "/v1/position/liquidation"],
+        "signers": ["/v1/linked-signer", "/v1/linked-signer/link", "/v1/linked-signer/revoke", "/v1/linked-signer/refresh", "/v1/linked-signer/extend", "/v1/linked-signer/quota"],
+        "tokens": ["/v1/token", "/v1/token/transfer", "/v1/token/withdraw", "/v1/token/{id}/withdraw"],
+        "other": ["/v1/referral", "/v1/points", "/v1/whitelist", "/v1/rate-limit/config", "/v1/maintenance", "/v1/time"]
+      }
+    },
+    "csp_analysis": {
+      "source": "app.ethereal.trade response headers",
+      "privy": "auth.privy.io in frame-src — embedded wallet / auth integration present",
+      "funxyz": "*.fun.xyz and wss://*.fun.xyz in connect-src; 'funkit' found in HTML — Fun.xyz wallet SDK integrated",
+      "moonpay": "static.moonpay.com and api.moonpay.com in connect-src — fiat on-ramp",
+      "walletconnect": "Multiple *.reown.com, *.walletconnect.org, *.walletconnect.com entries across script-src, connect-src, frame-src",
+      "relay": "api.relay.link in connect-src — Relay cross-chain bridging",
+      "merkl": "api.merkl.xyz in connect-src — Merkl rewards/incentives",
+      "zerion": "dna.zerion.io in connect-src — Zerion wallet integration",
+      "binance_wallet": "wallet.binance.com in connect-src",
+      "lighter_cross_ref": "mainnet.zklighter.elliot.ai in connect-src — cross-reference to ZK Lighter",
+      "sentry": "Sentry ingest endpoint in connect-src",
+      "statsig": "api.statsig.com in connect-src — feature flags/experimentation",
+      "hosting": "Vercel (x-vercel-cache: HIT, server: Vercel)"
+    }
+  },
+
+  "docs_recheck": {
+    "testnet_access": {
+      "source": "https://docs.ethereal.trade/trading/perpetual-futures/ethereal-testnet",
+      "current_state": "No public faucet. Must request testnet funds via Discord #developer-support.",
+      "change_from_first_pass": "Previously described as 'submit access request through app, funded in under 24 hours'. Now explicitly Discord-only.",
+      "testnet_chain": {"rpc": "https://rpc.etherealtest.net", "chain_id": 13374202, "gas_token": "USDe (18 decimals)", "explorer": "https://explorer.etherealtest.net/"}
+    },
+    "deposits": {
+      "source": "https://docs.ethereal.trade/developer-guides/trading-api/token-transfers",
+      "key_points": [
+        "Deposit to new subaccount auto-creates it",
+        "Only USDe supported, wraps to WUSDe via depositUsd() convenience method",
+        "Minimum deposit: 10 units",
+        "Zero deposit fees currently",
+        "Pending state during offchain indexer verification"
+      ]
+    },
+    "accounts_and_signers": {
+      "source": "https://docs.ethereal.trade/developer-guides/trading-api/accounts-and-signers",
+      "key_points": [
+        "Unlimited subaccounts per user",
+        "Linked signer rate limit: 5 per 7 days across all subaccounts",
+        "Multiple signers per subaccount supported",
+        "Revoked signers cannot be relinked",
+        "All resting orders from revoked signer must be canceled first"
+      ]
+    },
+    "websocket": {
+      "source": "https://docs.ethereal.trade/developer-guides/trading-api/websocket-gateway",
+      "key_points": [
+        "Native WebSocket v2: wss://ws2.ethereal.trade/v1/stream (primary)",
+        "Old Socket.io: wss://ws.ethereal.trade/v1/stream (deprecated)",
+        "Max connection: ~4 hours",
+        "Heartbeat: ping every 30 seconds",
+        "7 channel types: L2Book, Ticker, TradeFill, PositionUpdate, OrderUpdate, OrderFill, SubaccountLiquidation, TokenTransfer"
+      ]
+    },
+    "api_hosts": {
+      "source": "https://docs.ethereal.trade/protocol-reference/api-hosts",
+      "mainnet": {
+        "api": "https://api.ethereal.trade",
+        "archive": "https://archive.ethereal.trade",
+        "ws": "wss://ws.ethereal.trade (deprecated) / wss://ws2.ethereal.trade (v2)",
+        "tradingview": "https://tradingview.ethereal.trade",
+        "app": "https://app.ethereal.trade"
+      },
+      "testnet": {
+        "api": "https://api.etherealtest.net",
+        "archive": "https://archive.etherealtest.net",
+        "ws": "wss://ws.etherealtest.net / wss://ws2.etherealtest.net",
+        "tradingview": "https://tradingview.etherealtest.net",
+        "app": "https://app.etherealtest.net"
+      }
+    }
+  },
+
+  "updated_assessment": {
+    "web2_friendliness": "Medium — higher than first-pass described. CSP reveals Privy (auth.privy.io) and Fun.xyz (funkit) integrations, plus MoonPay fiat on-ramp. But none of these are documented in developer guides or prominently surfaced — they appear to be frontend-only integrations, possibly for upcoming features or A/B testing via Statsig.",
+    "api_order_usability_from_cold_wallet": "Still low. Fresh wallet has empty subaccounts and 404 signer. Must deposit first to create subaccount, then use EIP-712 signing per action. No API key alternative.",
+    "key_friction_points": [
+      "No API key auth — every action requires EIP-712 signature",
+      "First deposit required to create subaccount",
+      "Testnet funding now requires Discord request (no public faucet)",
+      "Linked signer rate limited to 5 per 7 days",
+      "Revoked signers cannot be relinked",
+      "Only USDe (wrapped to WUSDe) supported for deposits"
+    ],
+    "what_changed_vs_first_pass": "The biggest correction is the embedded wallet infrastructure — Privy and Fun.xyz ARE present in the live app's CSP and HTML, contradicting the first-pass 'no embedded wallet evidence found.' However, this appears to be frontend integration only (not reflected in API docs). Testnet access has become more restrictive (Discord-only vs former app-based request). API surface is richer than first-pass captured (49 endpoints). WebSocket has been upgraded to native v2."
+  }
+}

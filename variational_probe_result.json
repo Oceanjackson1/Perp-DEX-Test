@@ -1,0 +1,84 @@
+{
+  "date": "2026-03-21",
+  "wallet_under_test": "0x41Deec4e76e46c18719E90920C1efef370B7DB0A",
+  "summary": {
+    "current_live_product": "Omni",
+    "pro_status": "not_live",
+    "public_trading_api_status": "not_available",
+    "legacy_api_stack_status": "archival_or_stale"
+  },
+  "live_probes": {
+    "stats_endpoint": {
+      "url": "https://omni-client-api.prod.ap-northeast-1.variational.io/metadata/stats",
+      "status": 200,
+      "content_type": "application/json"
+    },
+    "web_apps": {
+      "omni_mainnet": {
+        "url": "https://omni.variational.io",
+        "status": 200
+      },
+      "omni_testnet": {
+        "url": "https://omni.testnet.variational.io",
+        "status": 200
+      }
+    },
+    "docs": {
+      "api_page": {
+        "url": "https://docs.variational.io/technical-documentation/api",
+        "status": 200
+      },
+      "about_pro": {
+        "url": "https://docs.variational.io/pro/about-pro",
+        "status": 200
+      },
+      "getting_started_with_omni": {
+        "url": "https://docs.variational.io/omni/getting-started-with-omni",
+        "status": 200
+      },
+      "legacy_authentication_page": {
+        "url": "https://docs.variational.io/technical-documentation/api/authentication",
+        "status": 404
+      },
+      "legacy_api_setup_page": {
+        "url": "https://docs.variational.io/technical-documentation/api/quickstart-and-tutorials/api-trading-prerequisites-and-setup",
+        "status": 404
+      }
+    },
+    "dns_resolution": {
+      "omni.variational.io": [
+        "104.18.22.115",
+        "104.18.23.115",
+        "2606:4700::6812:1673",
+        "2606:4700::6812:1773"
+      ],
+      "omni.testnet.variational.io": [
+        "104.18.22.115",
+        "104.18.23.115",
+        "2606:4700::6812:1673",
+        "2606:4700::6812:1773"
+      ],
+      "omni-client-api.prod.ap-northeast-1.variational.io": [
+        "104.18.22.115",
+        "104.18.23.115",
+        "2606:4700::6812:1673",
+        "2606:4700::6812:1773"
+      ],
+      "pro.testnet.variational.io": {
+        "error": "[Errno 8] nodename nor servname provided, or not known"
+      },
+      "api.testnet.variational.io": {
+        "error": "[Errno 8] nodename nor servname provided, or not known"
+      },
+      "api.variational.io": {
+        "error": "[Errno 8] nodename nor servname provided, or not known"
+      }
+    }
+  },
+  "interpretation": [
+    "Variational should now be treated as a split story: Omni is the current live perp product, while Pro is still not live.",
+    "The current official API page only exposes the read-only Omni stats endpoint and explicitly says trading API access is not yet available.",
+    "Gasless deposits reduce onboarding friction, but the live path is still wallet-first rather than embedded-wallet or email-first.",
+    "Old Pro/API-key/HMAC documentation still appears in archival references and search snippets, but the legacy docs paths now return 404 and the old api/pro testnet hostnames do not resolve."
+  ]
+}

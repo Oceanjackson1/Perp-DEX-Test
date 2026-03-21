@@ -1,0 +1,7 @@
+{
+  "address": "0x41Deec4e76e46c18719E90920C1efef370B7DB0A",
+  "status": 401,
+  "ok": false,
+  "setCookie": null,
+  "body": "{\"status\":401,\"message\":\"wallet address not registered\"}"
+}

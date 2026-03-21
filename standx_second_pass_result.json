@@ -1,0 +1,126 @@
+{
+  "platform": "StandX",
+  "research_date": "2026-03-21",
+  "methodology": "official docs + live API probe + JS/HTML analysis + web search",
+
+  "overview": {
+    "chains": ["BNB Chain (BSC)", "Solana"],
+    "collateral": "DUSD (proprietary yield-bearing stablecoin)",
+    "team": "Former Binance Futures founding team + Goldman Sachs alumni",
+    "correct_domain": "standx.com (NOT standx.trade — that domain is a broken PHP deployment)"
+  },
+
+  "onboarding": {
+    "model": "Wallet-first (Connect Wallet), no email/social login visible",
+    "embedded_wallet": "No embedded wallet / Privy / Dynamic.xyz signals found in CSP or HTML",
+    "wallet_system": "Two-wallet: Cash Wallet (deposit holding) + Perps Wallet (active trading). Users deposit DUSD then transfer internally.",
+    "first_trade_guide": "Dedicated tutorial for Binance Wallet users"
+  },
+
+  "api_auth": {
+    "model": "JWT via wallet signature — no traditional API keys (self-custodial)",
+    "flow": [
+      "1. Generate temporary ed25519 key pair, base58-encode public key as requestId",
+      "2. POST https://api.standx.com/v1/offchain/prepare-signin?chain=<bsc|solana> with {address, requestId} → returns signedData JWT",
+      "3. Parse JWT, extract message field",
+      "4. Sign message with wallet (EVM: ECDSA via ethers.js, Solana: ed25519)",
+      "5. POST https://api.standx.com/v1/offchain/login?chain=<chain> with {signature, signedData, expiresSeconds} → returns JWT (default 7 days)",
+      "6. Use Authorization: Bearer <token>"
+    ],
+    "body_signature": {
+      "required_for": "order/cancel/transfer endpoints",
+      "format": "{version},{id},{timestamp},{payload}",
+      "headers": ["x-request-sign-version: v1", "x-request-id", "x-request-timestamp", "x-request-signature (base64 ed25519)"]
+    },
+    "token_management": {
+      "url": "https://standx.com/user/session",
+      "permissions": ["Trade", "Withdraw"],
+      "expiry_options": ["7 days", "30 days", "90 days", "180 days"],
+      "note": "Signing keys generated client-side only; StandX never stores them. Revocable immediately."
+    }
+  },
+
+  "api_endpoints": {
+    "base_url": "https://perps.standx.com",
+    "public": {
+      "GET /api/query_symbol_info": "All symbols with specs",
+      "GET /api/query_symbol_market": "Live market data",
+      "GET /api/query_symbol_price": "Current prices",
+      "GET /api/query_depth_book": "Order book",
+      "GET /api/query_recent_trades": "Recent trades",
+      "GET /api/query_funding_rates": "Funding rates",
+      "GET /api/kline/time": "Server time",
+      "GET /api/kline/history": "Kline data",
+      "GET /api/health": "Health check"
+    },
+    "private_read": {
+      "GET /api/query_order": "Single order",
+      "GET /api/query_orders": "Order history (max 500)",
+      "GET /api/query_open_orders": "Open orders (max 1200)",
+      "GET /api/query_trades": "Trade history",
+      "GET /api/query_position_config": "Position config",
+      "GET /api/query_positions": "All positions",
+      "GET /api/query_balance": "Balance info"
+    },
+    "private_write": {
+      "POST /api/new_order": "Place order (limit/market, TP/SL, isolated/cross)",
+      "POST /api/cancel_order": "Cancel single order",
+      "POST /api/cancel_orders": "Batch cancel",
+      "POST /api/change_leverage": "Change leverage",
+      "POST /api/change_margin_mode": "Change margin mode",
+      "POST /api/transfer_margin": "Transfer margin"
+    },
+    "websocket": {
+      "market": "wss://perps.standx.com/ws-stream/v1",
+      "order": "wss://perps.standx.com/ws-api/v1",
+      "public_channels": ["price", "depth_book", "public_trade"],
+      "private_channels": ["order", "position", "balance", "trade"],
+      "ws_trading": "order:new and order:cancel supported",
+      "limits": "Max 24h connection, ping/10s, max 10 concurrent WS/IP, max 30 new connections/min/IP"
+    }
+  },
+
+  "live_probe_results": {
+    "api_status": {"endpoint": "https://api.standx.com", "status": 200, "body": "{\"time\":1774100678301,\"status\":\"ok\"}"},
+    "symbol_info": {"endpoint": "https://perps.standx.com/api/query_symbol_info", "status": 200, "markets": ["BTC-USD", "ETH-USD", "XAG-USD", "XAU-USD"], "note": "4 markets, all DUSD-margined"},
+    "btc_market": {"endpoint": "https://perps.standx.com/api/query_symbol_market?symbol=BTC-USD", "status": 200, "last_price": "70701", "volume_24h": "4230.74 BTC", "volume_quote_24h": "$297M DUSD", "open_interest": "317.54 BTC ($22.4M)", "funding_rate": "0.00000263"},
+    "depth_book": {"endpoint": "https://perps.standx.com/api/query_depth_book?symbol=BTC-USD&depth=5", "status": 200, "note": "Live order book with bid/ask levels"},
+    "prepare_signin": {"endpoint": "https://api.standx.com/v1/offchain/prepare-signin?chain=bsc", "status": 200, "note": "Returns valid signedData JWT for our test wallet. SIWE message with chainId=56 (BSC)."},
+    "private_no_auth": {"endpoint": "https://perps.standx.com/api/query_balance", "status": 401, "body": "{\"code\":401,\"message\":\"missing jwt\"}"},
+    "geo": {"endpoint": "https://geo.standx.com/v1/region", "status": 200, "region": "TH"}
+  },
+
+  "contract_specs": {
+    "BTC-USD": {"min_trade": "0.0001 BTC", "max_leverage": "40x", "price_precision": "0.01"},
+    "ETH-USD": {"min_trade": "0.001 ETH", "max_leverage": "40x", "price_precision": "0.1"},
+    "XAG-USD": {"min_trade": "0.001 XAG", "max_leverage": "40x"},
+    "XAU-USD": {"min_trade": "0.001 XAU", "max_leverage": "40x"}
+  },
+
+  "rate_limits": {
+    "per_account": "Token bucket, 45 credits/req, 1000 credits/sec replenish, burst 900 credits (~20 req), sustained ~22 req/sec",
+    "per_ip": "50 req/sec",
+    "exceeded": "HTTP 429"
+  },
+
+  "sdk": "No official SDK. Auth examples in TypeScript for EVM (ethers.js) and SVM (@solana/web3.js).",
+
+  "assessment": {
+    "web2_friendliness": "Low. Wallet-first only, no email/social login, no embedded wallet signals.",
+    "api_order_usability": "High. Full REST + WebSocket trading API with comprehensive endpoints. JWT auth via wallet signature is well-documented with EVM + Solana examples.",
+    "key_friction_points": [
+      "Must hold DUSD (proprietary stablecoin) — not standard USDC/USDT",
+      "Two-wallet system (Cash + Perps) adds transfer step",
+      "Ed25519 key pair generation + body signature required for write operations",
+      "Only 4 markets currently (BTC, ETH, XAU, XAG)",
+      "Geo-restrictions may apply (geo.standx.com checks region)"
+    ],
+    "unique_strengths": [
+      "DUSD yields APY while trading (interest-bearing collateral)",
+      "Dual-chain: BSC + Solana with unified API",
+      "Self-custodial API token management with configurable permissions/expiry",
+      "WebSocket order execution supported",
+      "Clean REST API design comparable to CEX APIs"
+    ]
+  }
+}

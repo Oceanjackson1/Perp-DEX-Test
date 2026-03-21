@@ -1,0 +1,119 @@
+{
+  "wallet_address": "0x41Deec4e76e46c18719E90920C1efef370B7DB0A",
+  "testnet_host": "https://api.starknet.sepolia.extended.exchange",
+  "api_base_url": "https://api.starknet.sepolia.extended.exchange/api/v1",
+  "account": {
+    "id": 16233,
+    "account_index": 0,
+    "status": "ACTIVE",
+    "l2_vault": 513234,
+    "l2_public_key": "0x51477b6e58c98344ded9a8e307479e195a796e49c3940f95cb21b2913d7a585"
+  },
+  "api_key": {
+    "prefix": "62b1f847",
+    "suffix": "3598",
+    "length": 32
+  },
+  "balance_before_claim": {
+    "ok": true,
+    "balance": {
+      "collateral_name": "USD",
+      "balance": "1000",
+      "equity": "1000",
+      "available_for_trade": "1000",
+      "available_for_withdrawal": "1000",
+      "unrealised_pnl": "0",
+      "initial_margin": "0",
+      "margin_ratio": "0.0000",
+      "updated_time": 1774072275028
+    }
+  },
+  "claim_testing_funds": {
+    "ok": true,
+    "response": {
+      "id": 2035232950446071808
+    }
+  },
+  "balance_after_claim": {
+    "ok": true,
+    "balance": {
+      "collateral_name": "USD",
+      "balance": "1000",
+      "equity": "1000",
+      "available_for_trade": "1000",
+      "available_for_withdrawal": "1000",
+      "unrealised_pnl": "0",
+      "initial_margin": "0",
+      "margin_ratio": "0.0000",
+      "updated_time": 1774072275028
+    }
+  },
+  "client_info_after_claim": {
+    "ok": true,
+    "client": {
+      "id": 17059,
+      "evm_wallet_address": "0x41deec4e76e46c18719e90920c1efef370b7db0a",
+      "starknet_wallet_address": null,
+      "referral_link_code": null
+    }
+  },
+  "selected_market": {
+    "name": "BTC-USD",
+    "bid_price": "71237.3",
+    "ask_price": "74400",
+    "mark_price": "70650.277546750003",
+    "min_order_size": "0.0001",
+    "min_order_size_change": "0.00001",
+    "min_price_change": "0.1",
+    "limit_price_floor": "0.05",
+    "limit_price_cap": "0.05"
+  },
+  "planned_probe_order": {
+    "side": "BUY",
+    "qty": "0.0001",
+    "price": "35618.6",
+    "time_in_force": "IOC",
+    "strategy": "IOC buy placed well below best ask to avoid execution and resting."
+  },
+  "place_order": {
+    "ok": true,
+    "order": {
+      "id": 2035232962947313664,
+      "external_id": "codex-extended-write-probe"
+    }
+  },
+  "fetch_order_state": {
+    "ok": true,
+    "attempt": 2,
+    "order": {
+      "id": 2035232962947313664,
+      "account_id": 16233,
+      "external_id": "codex-extended-write-probe",
+      "market": "BTC-USD",
+      "type": "LIMIT",
+      "side": "BUY",
+      "status": "CANCELLED",
+      "status_reason": "NO_LIQUIDITY",
+      "price": "35618.6000000000000000",
+      "average_price": null,
+      "qty": "0.0001000000000000",
+      "filled_qty": "0E-16",
+      "cancelled_qty": "0E-16",
+      "reduce_only": false,
+      "post_only": false,
+      "payed_fee": "0E-16",
+      "created_time": 1774072325820,
+      "updated_time": 1774072325874,
+      "expiry_time": null,
+      "time_in_force": "IOC",
+      "tp_sl_type": null,
+      "take_profit": null,
+      "stop_loss": null
+    }
+  },
+  "open_orders_after_probe": {
+    "ok": true,
+    "count": 0,
+    "orders": []
+  }
+}

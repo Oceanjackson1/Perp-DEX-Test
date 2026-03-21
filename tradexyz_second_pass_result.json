@@ -1,0 +1,84 @@
+{
+  "platform": "trade[XYZ]",
+  "research_date": "2026-03-21",
+  "status": "completed",
+  "key_takeaway": "trade[XYZ] is currently best modeled as a Privy-enabled retail interface over Hyperliquid / HIP-3, not as a separate low-level trading API stack.",
+  "docs": {
+    "wallet_onboarding": {
+      "url": "https://docs.trade.xyz/getting-started/creating-or-connecting-your-wallet",
+      "findings": [
+        "Users can create a new wallet directly in the interface via Privy or connect an existing wallet.",
+        "The Privy email wallet path is described as the fastest option for new users without a crypto wallet.",
+        "Existing-wallet users must verify wallet control, ensure they are on the Hyperliquid network, deposit funds, and may also need to click Enable Trading and sign another confirmation."
+      ]
+    },
+    "api_overview": {
+      "url": "https://docs.trade.xyz/api/overview",
+      "findings": [
+        "The docs explicitly say users interact with all trade[XYZ] markets using the Hyperliquid API.",
+        "The mainnet endpoint is https://api.hyperliquid.xyz and the testnet endpoint is https://api.hyperliquid-testnet.xyz.",
+        "For XYZ markets, the docs say users should pass type:perpDexs and instruments such as xyz:XYZ100."
+      ]
+    },
+    "architecture": {
+      "url": "https://docs.trade.xyz/about-trade-xyz/hyperliquid-xyz-and-hip-3",
+      "findings": [
+        "All markets accessed through trade[XYZ] operate on Hyperliquid.",
+        "The XYZ protocol is described as a HIP-3 DEX instance.",
+        "trade[XYZ] is described as the interface and explicitly not the exclusive means of accessing XYZ markets."
+      ]
+    },
+    "faq": {
+      "url": "https://docs.trade.xyz/support-and-faqs/faqs/trade-xyz-and-equities-xyz-markets",
+      "findings": [
+        "The FAQ says Hyperliquid provides the logic for much of the XYZ HIP-3 DEX while trade[XYZ] is the interface.",
+        "The FAQ also says Equities [XYZ] markets are distinct from Hyperliquid perp and spot markets, and balances between perp accounts are not shared."
+      ]
+    },
+    "introduction": {
+      "url": "https://docs.trade.xyz/about-trade-xyz/introduction",
+      "findings": [
+        "The docs describe trade[XYZ] as a non-custodial interface for markets on HyperCore / the Hyperliquid blockchain.",
+        "The current introduction page says the interface may be unavailable in the U.S. and other restricted jurisdictions."
+      ]
+    }
+  },
+  "runtime_checks": {
+    "trade_xyz_head": {
+      "url": "https://trade.xyz",
+      "status": 200,
+      "server": "Vercel",
+      "signals": [
+        "CSP child-src/frame-src includes https://auth.privy.io",
+        "CSP connect-src includes https://api-ui.hyperliquid.xyz"
+      ]
+    },
+    "app_trade_xyz_head": {
+      "url": "https://app.trade.xyz",
+      "status": 200,
+      "server": "Vercel",
+      "signals": [
+        "CSP child-src/frame-src includes https://auth.privy.io",
+        "CSP connect-src includes https://*.hyperliquid.xyz and https://*.hyperliquid-testnet.xyz",
+        "CSP connect-src includes wss://*.hyperliquid.xyz and wss://*.hyperliquid-testnet.xyz"
+      ]
+    },
+    "app_trade_xyz_html": {
+      "url": "https://app.trade.xyz",
+      "signals": [
+        "HTML contains preconnect and dns-prefetch hints for https://api-ui.hyperliquid.xyz"
+      ]
+    }
+  },
+  "interpretation": [
+    "The current docs and the live runtime surface point to the same model: trade[XYZ] is an onboarding and interface layer wrapped around Hyperliquid-native execution.",
+    "This means trade[XYZ] should not be modeled as an independent exchange-native private API stack in the same way as venues that issue their own API keys and signatures.",
+    "The main retail advantage is smoother onboarding through Privy email wallets.",
+    "The main constraints are still Hyperliquid-side activation and deposit flow for connected wallets, separate balance buckets across some market types, and interface-level geographic restrictions."
+  ],
+  "assessment": {
+    "web2_friendliness": "high",
+    "api_order_usability": "medium-high",
+    "key_friction": "Privy smooths the front door, but connected-wallet users still face deposit and possible Enable Trading steps, while market/balance separation and jurisdiction restrictions remain real constraints."
+  }
+}

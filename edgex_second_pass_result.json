@@ -1,0 +1,124 @@
+{
+  "platform": "EdgeX",
+  "research_date": "2026-03-21",
+  "status": "completed",
+  "key_takeaway": "EdgeX currently has a more Web2-friendly front door than the first pass captured, but the underlying private integration path is still exchange-native and heavier than the docs alone suggest.",
+  "docs": {
+    "accounts_and_wallets": {
+      "url": "https://edgex-1.gitbook.io/edgeX-documentation/getting-started/accounts-and-wallets",
+      "findings": [
+        "The docs still describe two login paths: standard wallet login and MPC email login.",
+        "For email users, a new blockchain address is created after email verification.",
+        "The docs explicitly say edgeX will generate an EVM address for the user."
+      ]
+    },
+    "authentication": {
+      "url": "https://edgex-1.gitbook.io/edgeX-documentation/api/authentication",
+      "findings": [
+        "The auth docs say private APIs are authenticated with X-edgeX-Api-Timestamp and X-edgeX-Api-Signature.",
+        "The docs frame the signing flow around exporting a private key from the UI and signing timestamp + method + path + sorted params or body.",
+        "The docs do not document X-edgeX-Api-Key or X-edgeX-Passphrase in the current authentication page."
+      ]
+    },
+    "account_api": {
+      "url": "https://edgex-1.gitbook.io/edgeX-documentation/api/private-api/account-api",
+      "findings": [
+        "The docs expose registerAccount (Create Sub-Account) as a private endpoint.",
+        "The request body requires l2Key, l2KeyYCoordinate, and clientAccountId.",
+        "The account schema itself exposes l2Key, l2KeyYCoordinate, and clientAccountId fields."
+      ]
+    },
+    "order_api": {
+      "url": "https://edgex-1.gitbook.io/edgeX-documentation/api/private-api/order-api",
+      "findings": [
+        "Order creation still requires L2-specific fields such as l2Nonce, l2Value, l2LimitFee, l2ExpireTime, and l2Signature."
+      ]
+    },
+    "l2_signature": {
+      "url": "https://edgex-1.gitbook.io/edgeX-documentation/api/sign",
+      "findings": [
+        "The L2 signing docs say critical operations use l2Signature.",
+        "The docs say users must obtain an L2 private key from the UI.",
+        "The signature flow uses ECDSA together with Pedersen hash."
+      ]
+    }
+  },
+  "runtime_checks": {
+    "pro_site": {
+      "url": "https://pro.edgex.exchange",
+      "status": 200,
+      "server": "cloudflare",
+      "signals": [
+        "CSP script-src includes auth.privy.io",
+        "CSP connect-src includes auth.privy.io",
+        "HTML includes a lib-privy JavaScript bundle"
+      ]
+    },
+    "public_api": {
+      "url": "https://pro.edgex.exchange/api/v1/public/funding/getLatestFundingRate",
+      "status": 200,
+      "result_code": "SUCCESS"
+    },
+    "private_api_gateway_sequence": {
+      "url": "https://pro.edgex.exchange/api/v1/private/account/getPositionTransactionPage",
+      "steps": [
+        {
+          "headers": [],
+          "result_code": "GATEWAY_HEADER_REQUIRED",
+          "message": "header required : 'X-edgeX-Api-Key'"
+        },
+        {
+          "headers": [
+            "X-edgeX-Api-Key"
+          ],
+          "result_code": "GATEWAY_HEADER_REQUIRED",
+          "message": "header required : 'X-edgeX-Passphrase'"
+        },
+        {
+          "headers": [
+            "X-edgeX-Api-Key",
+            "X-edgeX-Passphrase"
+          ],
+          "result_code": "GATEWAY_HEADER_REQUIRED",
+          "message": "header required : 'X-edgeX-Signature'"
+        },
+        {
+          "headers": [
+            "X-edgeX-Api-Key",
+            "X-edgeX-Passphrase",
+            "X-edgeX-Signature",
+            "X-edgeX-Api-Timestamp"
+          ],
+          "result_code": "GATEWAY_HEADER_REQUIRED",
+          "message": "header required : 'X-edgeX-Timestamp'"
+        },
+        {
+          "headers": [
+            "X-edgeX-Api-Key",
+            "X-edgeX-Passphrase",
+            "X-edgeX-Signature",
+            "X-edgeX-Timestamp"
+          ],
+          "result_code": "INVALID_API_KEY",
+          "message": "invalid apiKey : fake"
+        }
+      ]
+    },
+    "register_account_probe": {
+      "url": "https://pro.edgex.exchange/api/v1/private/account/registerAccount",
+      "result_code": "GATEWAY_HEADER_REQUIRED",
+      "message": "header required : 'X-edgeX-Api-Key'"
+    }
+  },
+  "interpretation": [
+    "The retail login surface is now more concretely Web2-friendly than the first-pass wording suggested, because the live frontend is visibly Privy-backed rather than just abstractly email-capable.",
+    "But private integration remains heavy: the production gateway enforces API key, passphrase, signature, and timestamp before deeper request validation.",
+    "This means EdgeX should still be modeled as a Web2-friendly front door over an exchange-native credential stack, not as a lightweight raw-wallet-first API venue.",
+    "There is also a stronger doc-runtime mismatch than previously stated: the docs emphasize X-edgeX-Api-Timestamp and X-edgeX-Api-Signature, while the live gateway also expects X-edgeX-Api-Key, X-edgeX-Passphrase, and a timestamp header named X-edgeX-Timestamp."
+  ],
+  "assessment": {
+    "web2_friendliness": "high at the frontend, medium at the integration layer",
+    "api_order_usability": "medium-low",
+    "key_friction": "EdgeX layers exchange-native API credentials on top of a separate L2 signing path, and even sub-account registration sits behind the private gateway."
+  }
+}
