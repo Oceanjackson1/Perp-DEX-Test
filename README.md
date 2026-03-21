@@ -69,6 +69,7 @@
 ├── perp_dex_complete_report_20260321.md    # 完整报告 97KB（覆盖全部 13 个平台）
 ├── full_perp_dex_research_20260321.md      # 研究矩阵与详细分析
 ├── first_pass_platform_probe.md            # 初步发现（Extended、Ethereal、GRVT、EdgeX）
+├── institutional_api_benchmark_20260321.md # 机构级 API 性能与可用性基准报告
 │
 ├── # ── 探测脚本 ──────────────────────────────────
 ├── extended_onboarding_probe.py            # Extended：SDK 账户创建 + API Key 生成
@@ -112,6 +113,30 @@
 ├── package.json                            # Node.js 依赖（ethers, starknet）
 └── package-lock.json
 ```
+
+## 机构级 API 基准报告
+
+除了注册摩擦度研究外，本项目还包含一份完整的 **[机构级 API 性能与可用性基准报告](institutional_api_benchmark_20260321.md)**，从量化基金/做市商/Prop Desk 视角评估各平台，覆盖：
+
+- **速率限制对比** — REST/WS 请求上限、权重系统、分级差异
+- **订单类型矩阵** — Limit/Market/Stop/TWAP/IOC/FOK/Post-Only/Scale/OCO/OTO
+- **批量操作能力** — 批量下单/撤单/一键撤全/批量修改
+- **延迟与撮合引擎** — 声称延迟 (2ms ~ 300ms)、吞吐量 (1K ~ 100万 OPS)
+- **费率深度对比** — 基础 Maker/Taker、VIP 分级、做市商返佣、专属做市计划
+- **子账户架构** — 策略隔离、独立保证金、最大子账户数、API Key 数量
+- **WebSocket 能力** — 公共/私有频道、订单簿更新频率 (50ms ~ 500ms)
+- **SDK 生态** — Python/TS/Go/Rust 官方与社区 SDK、CCXT 集成
+- **杠杆与交易对** — 最大杠杆 (20x ~ 1001x)、交易对数 (3 ~ 500+)
+- **综合评分与分级推荐** — Tier 1-4 机构适用性评级
+
+### 机构推荐摘要
+
+| 分级 | 平台 | 核心优势 |
+|------|------|---------|
+| **Tier 1** | Hyperliquid, Lighter | 最完整 API + Agent 钱包; 0ms Maker 延迟 + ZK 公平撮合 |
+| **Tier 2** | GRVT, Paradex, Aster | 全层级返佣 + 期权; 250+ 对 + 零费率; Binance 兼容 API |
+| **Tier 3** | Extended, trade[XYZ], EdgeX, Nado, StandX | TradFi 永续; S&P 500 授权; B2B 流动性; 统一保证金 |
+| **Tier 4** | Ethereal, MYX, Variational | 仅 3 对/无 REST API/API 未上线 |
 
 ## 研究方法论
 
