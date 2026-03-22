@@ -1,0 +1,300 @@
+{
+  "hyperliquid": {
+    "display_name": "Hyperliquid",
+    "rest_base": "https://api.hyperliquid.xyz",
+    "rest_testnet": "https://api.hyperliquid-testnet.xyz",
+    "ws_url": "wss://api.hyperliquid.xyz/ws",
+    "ws_testnet": "wss://api.hyperliquid-testnet.xyz/ws",
+    "ping_endpoint": {
+      "method": "POST",
+      "path": "/info",
+      "body": {"type": "meta"},
+      "note": "Returns exchange metadata"
+    },
+    "orderbook_ws": {
+      "subscribe_msg": {"method": "subscribe", "subscription": {"type": "l2Book", "coin": "BTC"}},
+      "type": "native"
+    },
+    "capabilities": {
+      "has_ws": true,
+      "has_batch": true,
+      "has_testnet_funds": false,
+      "has_public_rest": true,
+      "has_order_api": true
+    }
+  },
+  "lighter": {
+    "display_name": "Lighter",
+    "rest_base": "https://mainnet.zklighter.elliot.ai",
+    "ws_url": "wss://mainnet.zklighter.elliot.ai/stream",
+    "ping_endpoint": {
+      "method": "GET",
+      "path": "/api/v1/orderBookDetails",
+      "body": null,
+      "note": "Public market data"
+    },
+    "orderbook_ws": {
+      "subscribe_msg": {"type": "subscribe", "channel": "order_book/0"},
+      "type": "native"
+    },
+    "capabilities": {
+      "has_ws": true,
+      "has_batch": true,
+      "has_testnet_funds": false,
+      "has_public_rest": true,
+      "has_order_api": true
+    }
+  },
+  "grvt": {
+    "display_name": "GRVT",
+    "rest_base": "https://market-data.grvt.io",
+    "rest_testnet": "https://market-data.edge.testnet.grvt.io",
+    "ws_url": "wss://market-data.grvt.io/ws",
+    "ws_testnet": "wss://market-data.edge.testnet.grvt.io/ws",
+    "ping_endpoint": {
+      "method": "POST",
+      "path": "/full/v1/get_instrument",
+      "body": {"instrument": "BTC_USDT_Perp"},
+      "note": "Get instrument details"
+    },
+    "orderbook_ws": {
+      "subscribe_msg": {"jsonrpc": "2.0", "method": "subscribe", "params": {"stream": "book.s@BTC_USDT_Perp"}, "id": 1},
+      "type": "native"
+    },
+    "capabilities": {
+      "has_ws": true,
+      "has_batch": false,
+      "has_testnet_funds": true,
+      "has_public_rest": true,
+      "has_order_api": true
+    }
+  },
+  "extended": {
+    "display_name": "Extended (x10)",
+    "rest_base": "https://api.x10.exchange",
+    "rest_testnet": "https://api.testnet.x10.exchange",
+    "ws_url": "wss://api.starknet.extended.exchange/stream.extended.exchange/v1",
+    "ping_endpoint": {
+      "method": "GET",
+      "path": "/api/v1/info/markets",
+      "body": null,
+      "note": "Public markets info"
+    },
+    "orderbook_ws": {
+      "subscribe_msg": {"type": "subscribe", "channel": "orderbook", "market": "BTC-USD"},
+      "type": "native"
+    },
+    "capabilities": {
+      "has_ws": true,
+      "has_batch": false,
+      "has_testnet_funds": true,
+      "has_public_rest": true,
+      "has_order_api": true
+    }
+  },
+  "paradex": {
+    "display_name": "Paradex",
+    "rest_base": "https://api.prod.paradex.trade",
+    "rest_testnet": "https://api.testnet.paradex.trade",
+    "ws_url": "wss://ws.prod.paradex.trade/v1",
+    "ws_testnet": "wss://ws.testnet.paradex.trade/v1",
+    "ping_endpoint": {
+      "method": "GET",
+      "path": "/v1/system/time",
+      "body": null,
+      "note": "Server time"
+    },
+    "orderbook_ws": {
+      "subscribe_msg": {"jsonrpc": "2.0", "method": "subscribe", "params": {"channel": "order_book.BTC-USD-PERP.snapshot@100ms"}},
+      "type": "jsonrpc"
+    },
+    "capabilities": {
+      "has_ws": true,
+      "has_batch": true,
+      "has_testnet_funds": true,
+      "has_public_rest": true,
+      "has_order_api": true
+    }
+  },
+  "ethereal": {
+    "display_name": "Ethereal",
+    "rest_base": "https://api.ethereal.trade",
+    "rest_testnet": "https://api.etherealtest.net",
+    "ws_url": "wss://ws2.ethereal.trade/v1/stream",
+    "ping_endpoint": {
+      "method": "GET",
+      "path": "/v1/time",
+      "body": null,
+      "note": "Server time"
+    },
+    "orderbook_ws": {
+      "subscribe_msg": null,
+      "type": "socketio",
+      "note": "Uses Socket.IO, not raw WS"
+    },
+    "capabilities": {
+      "has_ws": true,
+      "has_batch": false,
+      "has_testnet_funds": false,
+      "has_public_rest": true,
+      "has_order_api": true,
+      "ws_is_socketio": true
+    }
+  },
+  "aster": {
+    "display_name": "Aster",
+    "rest_base": "https://fapi.asterdex.com",
+    "ws_url": "wss://fstream.asterdex.com/ws",
+    "ping_endpoint": {
+      "method": "GET",
+      "path": "/fapi/v1/ping",
+      "body": null,
+      "note": "Ping endpoint"
+    },
+    "orderbook_ws": {
+      "subscribe_msg": null,
+      "type": "stream_url",
+      "stream_url": "wss://fstream.asterdex.com/ws/btcusdt@depth@100ms",
+      "note": "Binance-style stream URL"
+    },
+    "capabilities": {
+      "has_ws": true,
+      "has_batch": true,
+      "has_testnet_funds": false,
+      "has_public_rest": true,
+      "has_order_api": true
+    }
+  },
+  "edgex": {
+    "display_name": "EdgeX",
+    "rest_base": "https://api.edgex.exchange",
+    "ws_url": "wss://quote-ws.edgex.exchange/ws/v1",
+    "ping_endpoint": {
+      "method": "GET",
+      "path": "/api/v1/public/funding",
+      "body": null,
+      "note": "Public funding rates"
+    },
+    "orderbook_ws": {
+      "subscribe_msg": {"type": "subscribe", "channel": "orderbook.10000001"},
+      "type": "native"
+    },
+    "capabilities": {
+      "has_ws": true,
+      "has_batch": false,
+      "has_testnet_funds": false,
+      "has_public_rest": true,
+      "has_order_api": true
+    }
+  },
+  "nado": {
+    "display_name": "Nado",
+    "rest_base": "https://api.nado.xyz",
+    "ws_url": "wss://subscriptions.nado.xyz",
+    "ping_endpoint": {
+      "method": "GET",
+      "path": "/v2/products",
+      "body": null,
+      "note": "Product list"
+    },
+    "orderbook_ws": {
+      "subscribe_msg": {"method": "subscribe", "params": {"channel": "depth_diffs", "product_id": "BTC-USD"}},
+      "type": "native",
+      "note": "Requires permessage-deflate"
+    },
+    "capabilities": {
+      "has_ws": true,
+      "has_batch": false,
+      "has_testnet_funds": false,
+      "has_public_rest": true,
+      "has_order_api": true,
+      "ws_requires_deflate": true
+    }
+  },
+  "standx": {
+    "display_name": "StandX",
+    "rest_base": "https://perps.standx.com",
+    "ws_url": "wss://perps.standx.com/ws-stream/v1",
+    "ping_endpoint": {
+      "method": "GET",
+      "path": "/api/server_time",
+      "body": null,
+      "note": "Server time"
+    },
+    "orderbook_ws": {
+      "subscribe_msg": {"method": "subscribe", "params": {"channel": "depth_book", "symbol": "BTC-USD"}},
+      "type": "native"
+    },
+    "capabilities": {
+      "has_ws": true,
+      "has_batch": false,
+      "has_testnet_funds": false,
+      "has_public_rest": true,
+      "has_order_api": true
+    }
+  },
+  "tradexyz": {
+    "display_name": "trade[XYZ]",
+    "rest_base": "https://api.hyperliquid.xyz",
+    "ws_url": "wss://api.hyperliquid.xyz/ws",
+    "ping_endpoint": {
+      "method": "POST",
+      "path": "/info",
+      "body": {"type": "meta"},
+      "note": "Same as Hyperliquid (shared infra)"
+    },
+    "orderbook_ws": {
+      "subscribe_msg": {"method": "subscribe", "subscription": {"type": "l2Book", "coin": "BTC"}},
+      "type": "native"
+    },
+    "capabilities": {
+      "has_ws": true,
+      "has_batch": true,
+      "has_testnet_funds": false,
+      "has_public_rest": true,
+      "has_order_api": true,
+      "shares_infra_with": "hyperliquid"
+    },
+    "note": "trade[XYZ] uses Hyperliquid infrastructure; results will mirror Hyperliquid"
+  },
+  "myx": {
+    "display_name": "MYX Finance",
+    "rest_base": "https://api.myx.finance",
+    "ws_url": null,
+    "ping_endpoint": {
+      "method": "GET",
+      "path": "/v2/quote/market/contracts",
+      "body": null,
+      "note": "Read-only market data"
+    },
+    "orderbook_ws": null,
+    "capabilities": {
+      "has_ws": false,
+      "has_batch": false,
+      "has_testnet_funds": false,
+      "has_public_rest": true,
+      "has_order_api": false,
+      "on_chain_only": true
+    }
+  },
+  "variational": {
+    "display_name": "Variational",
+    "rest_base": "https://api.variational.io",
+    "ws_url": null,
+    "ping_endpoint": {
+      "method": "GET",
+      "path": "/",
+      "body": null,
+      "note": "API may not be live"
+    },
+    "orderbook_ws": null,
+    "capabilities": {
+      "has_ws": false,
+      "has_batch": false,
+      "has_testnet_funds": false,
+      "has_public_rest": false,
+      "has_order_api": false,
+      "api_not_live": true
+    }
+  }
+}
