@@ -1,7 +1,6 @@
 {
   "test": "ws_orderbook",
-  "timestamp": "2026-03-23T04:34:42Z",
-  "duration_sec": 60,
+  "timestamp": "2026-03-23T04:59:18Z",
   "results": [
     {
       "platform": "aster",
@@ -97,8 +96,8 @@
       "platform": "nado",
       "display_name": "Nado",
       "ws_orderbook": {
-        "status": "ERROR",
-        "error": "server rejected WebSocket connection: HTTP 404"
+        "status": "INSUFFICIENT_DATA",
+        "messages": 1
       }
     },
     {

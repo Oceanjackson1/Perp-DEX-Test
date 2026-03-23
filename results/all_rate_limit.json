@@ -1,409 +1,7 @@
 {
-  "test": "rate_limit_probe",
-  "timestamp": "2026-03-23T03:12:53Z",
+  "test": "rate_limit",
+  "timestamp": "2026-03-23T04:59:19Z",
   "results": [
-    {
-      "platform": "hyperliquid",
-      "display_name": "Hyperliquid",
-      "rate_limit": {
-        "endpoint": "POST /info",
-        "base_url": "https://api.hyperliquid-testnet.xyz",
-        "method": "exponential_ramp",
-        "ramp_levels_rps": [
-          1,
-          2,
-          4,
-          8,
-          16,
-          32,
-          64
-        ],
-        "total_requests": 1270,
-        "total_429s": 0,
-        "total_errors": 0,
-        "first_429_at_rps": null,
-        "recovery_time_sec": null,
-        "ramp_log": [
-          {
-            "rps": 1,
-            "requests": 10,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 2,
-            "requests": 20,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 4,
-            "requests": 40,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 8,
-            "requests": 80,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 16,
-            "requests": 160,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 32,
-            "requests": 320,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 64,
-            "requests": 640,
-            "status_429": 0,
-            "other_errors": 0
-          }
-        ]
-      }
-    },
-    {
-      "platform": "lighter",
-      "display_name": "Lighter",
-      "rate_limit": {
-        "endpoint": "GET /api/v1/orderBookDetails",
-        "base_url": "https://mainnet.zklighter.elliot.ai",
-        "method": "exponential_ramp",
-        "ramp_levels_rps": [
-          1,
-          2,
-          4,
-          8,
-          16,
-          32,
-          64
-        ],
-        "total_requests": 1270,
-        "total_429s": 0,
-        "total_errors": 0,
-        "first_429_at_rps": null,
-        "recovery_time_sec": null,
-        "ramp_log": [
-          {
-            "rps": 1,
-            "requests": 10,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 2,
-            "requests": 20,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 4,
-            "requests": 40,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 8,
-            "requests": 80,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 16,
-            "requests": 160,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 32,
-            "requests": 320,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 64,
-            "requests": 640,
-            "status_429": 0,
-            "other_errors": 0
-          }
-        ]
-      }
-    },
-    {
-      "platform": "grvt",
-      "display_name": "GRVT",
-      "rate_limit": {
-        "endpoint": "POST /full/v1/get_instrument",
-        "base_url": "https://market-data.edge.testnet.grvt.io",
-        "method": "exponential_ramp",
-        "ramp_levels_rps": [
-          1,
-          2,
-          4,
-          8,
-          16,
-          32,
-          64
-        ],
-        "total_requests": 0,
-        "total_429s": 0,
-        "total_errors": 1270,
-        "first_429_at_rps": null,
-        "recovery_time_sec": null,
-        "ramp_log": [
-          {
-            "rps": 1,
-            "requests": 10,
-            "status_429": 0,
-            "other_errors": 10
-          },
-          {
-            "rps": 2,
-            "requests": 20,
-            "status_429": 0,
-            "other_errors": 20
-          },
-          {
-            "rps": 4,
-            "requests": 40,
-            "status_429": 0,
-            "other_errors": 40
-          },
-          {
-            "rps": 8,
-            "requests": 80,
-            "status_429": 0,
-            "other_errors": 80
-          },
-          {
-            "rps": 16,
-            "requests": 160,
-            "status_429": 0,
-            "other_errors": 160
-          },
-          {
-            "rps": 32,
-            "requests": 320,
-            "status_429": 0,
-            "other_errors": 320
-          },
-          {
-            "rps": 64,
-            "requests": 640,
-            "status_429": 0,
-            "other_errors": 640
-          }
-        ]
-      }
-    },
-    {
-      "platform": "extended",
-      "display_name": "Extended (x10)",
-      "rate_limit": {
-        "endpoint": "GET /api/v1/info/markets",
-        "base_url": "https://api.testnet.x10.exchange",
-        "method": "exponential_ramp",
-        "ramp_levels_rps": [
-          1,
-          2,
-          4,
-          8,
-          16,
-          32,
-          64
-        ],
-        "total_requests": 0,
-        "total_429s": 0,
-        "total_errors": 1270,
-        "first_429_at_rps": null,
-        "recovery_time_sec": null,
-        "ramp_log": [
-          {
-            "rps": 1,
-            "requests": 10,
-            "status_429": 0,
-            "other_errors": 10
-          },
-          {
-            "rps": 2,
-            "requests": 20,
-            "status_429": 0,
-            "other_errors": 20
-          },
-          {
-            "rps": 4,
-            "requests": 40,
-            "status_429": 0,
-            "other_errors": 40
-          },
-          {
-            "rps": 8,
-            "requests": 80,
-            "status_429": 0,
-            "other_errors": 80
-          },
-          {
-            "rps": 16,
-            "requests": 160,
-            "status_429": 0,
-            "other_errors": 160
-          },
-          {
-            "rps": 32,
-            "requests": 320,
-            "status_429": 0,
-            "other_errors": 320
-          },
-          {
-            "rps": 64,
-            "requests": 640,
-            "status_429": 0,
-            "other_errors": 640
-          }
-        ]
-      }
-    },
-    {
-      "platform": "paradex",
-      "display_name": "Paradex",
-      "rate_limit": {
-        "endpoint": "GET /v1/system/time",
-        "base_url": "https://api.testnet.paradex.trade",
-        "method": "exponential_ramp",
-        "ramp_levels_rps": [
-          1,
-          2,
-          4,
-          8,
-          16,
-          32,
-          64
-        ],
-        "total_requests": 1270,
-        "total_429s": 0,
-        "total_errors": 0,
-        "first_429_at_rps": null,
-        "recovery_time_sec": null,
-        "ramp_log": [
-          {
-            "rps": 1,
-            "requests": 10,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 2,
-            "requests": 20,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 4,
-            "requests": 40,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 8,
-            "requests": 80,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 16,
-            "requests": 160,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 32,
-            "requests": 320,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 64,
-            "requests": 640,
-            "status_429": 0,
-            "other_errors": 0
-          }
-        ]
-      }
-    },
-    {
-      "platform": "ethereal",
-      "display_name": "Ethereal",
-      "rate_limit": {
-        "endpoint": "GET /v1/time",
-        "base_url": "https://api.etherealtest.net",
-        "method": "exponential_ramp",
-        "ramp_levels_rps": [
-          1,
-          2,
-          4,
-          8,
-          16,
-          32,
-          64
-        ],
-        "total_requests": 1270,
-        "total_429s": 0,
-        "total_errors": 0,
-        "first_429_at_rps": null,
-        "recovery_time_sec": null,
-        "ramp_log": [
-          {
-            "rps": 1,
-            "requests": 10,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 2,
-            "requests": 20,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 4,
-            "requests": 40,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 8,
-            "requests": 80,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 16,
-            "requests": 160,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 32,
-            "requests": 320,
-            "status_429": 0,
-            "other_errors": 0
-          },
-          {
-            "rps": 64,
-            "requests": 640,
-            "status_429": 0,
-            "other_errors": 0
-          }
-        ]
-      }
-    },
     {
       "platform": "aster",
       "display_name": "Aster",
@@ -539,78 +137,11 @@
       }
     },
     {
-      "platform": "nado",
-      "display_name": "Nado",
+      "platform": "ethereal",
+      "display_name": "Ethereal",
       "rate_limit": {
-        "endpoint": "GET /v2/products",
-        "base_url": "https://api.nado.xyz",
-        "method": "exponential_ramp",
-        "ramp_levels_rps": [
-          1,
-          2,
-          4,
-          8,
-          16,
-          32,
-          64
-        ],
-        "total_requests": 1261,
-        "total_429s": 0,
-        "total_errors": 1270,
-        "first_429_at_rps": null,
-        "recovery_time_sec": null,
-        "ramp_log": [
-          {
-            "rps": 1,
-            "requests": 10,
-            "status_429": 0,
-            "other_errors": 10
-          },
-          {
-            "rps": 2,
-            "requests": 20,
-            "status_429": 0,
-            "other_errors": 20
-          },
-          {
-            "rps": 4,
-            "requests": 40,
-            "status_429": 0,
-            "other_errors": 40
-          },
-          {
-            "rps": 8,
-            "requests": 80,
-            "status_429": 0,
-            "other_errors": 80
-          },
-          {
-            "rps": 16,
-            "requests": 160,
-            "status_429": 0,
-            "other_errors": 160
-          },
-          {
-            "rps": 32,
-            "requests": 320,
-            "status_429": 0,
-            "other_errors": 320
-          },
-          {
-            "rps": 64,
-            "requests": 640,
-            "status_429": 0,
-            "other_errors": 640
-          }
-        ]
-      }
-    },
-    {
-      "platform": "standx",
-      "display_name": "StandX",
-      "rate_limit": {
-        "endpoint": "GET /api/server_time",
-        "base_url": "https://perps.standx.com",
+        "endpoint": "GET /v1/time",
+        "base_url": "https://api.etherealtest.net",
         "method": "exponential_ramp",
         "ramp_levels_rps": [
           1,
@@ -623,6 +154,73 @@
         ],
         "total_requests": 1270,
         "total_429s": 0,
+        "total_errors": 0,
+        "first_429_at_rps": null,
+        "recovery_time_sec": null,
+        "ramp_log": [
+          {
+            "rps": 1,
+            "requests": 10,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 2,
+            "requests": 20,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 4,
+            "requests": 40,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 8,
+            "requests": 80,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 16,
+            "requests": 160,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 32,
+            "requests": 320,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 64,
+            "requests": 640,
+            "status_429": 0,
+            "other_errors": 0
+          }
+        ]
+      }
+    },
+    {
+      "platform": "extended",
+      "display_name": "Extended (x10)",
+      "rate_limit": {
+        "endpoint": "GET /api/v1/info/markets",
+        "base_url": "https://api.testnet.x10.exchange",
+        "method": "exponential_ramp",
+        "ramp_levels_rps": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64
+        ],
+        "total_requests": 0,
+        "total_429s": 0,
         "total_errors": 1270,
         "first_429_at_rps": null,
         "recovery_time_sec": null,
@@ -673,11 +271,145 @@
       }
     },
     {
-      "platform": "tradexyz",
-      "display_name": "trade[XYZ]",
+      "platform": "grvt",
+      "display_name": "GRVT",
+      "rate_limit": {
+        "endpoint": "POST /full/v1/all_instruments",
+        "base_url": "https://market-data.grvt.io",
+        "method": "exponential_ramp",
+        "ramp_levels_rps": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64
+        ],
+        "total_requests": 1269,
+        "total_429s": 0,
+        "total_errors": 1,
+        "first_429_at_rps": null,
+        "recovery_time_sec": null,
+        "ramp_log": [
+          {
+            "rps": 1,
+            "requests": 10,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 2,
+            "requests": 20,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 4,
+            "requests": 40,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 8,
+            "requests": 80,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 16,
+            "requests": 160,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 32,
+            "requests": 320,
+            "status_429": 0,
+            "other_errors": 1
+          },
+          {
+            "rps": 64,
+            "requests": 640,
+            "status_429": 0,
+            "other_errors": 0
+          }
+        ]
+      }
+    },
+    {
+      "platform": "hyperliquid",
+      "display_name": "Hyperliquid",
       "rate_limit": {
         "endpoint": "POST /info",
-        "base_url": "https://api.hyperliquid.xyz",
+        "base_url": "https://api.hyperliquid-testnet.xyz",
+        "method": "exponential_ramp",
+        "ramp_levels_rps": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64
+        ],
+        "total_requests": 1270,
+        "total_429s": 0,
+        "total_errors": 0,
+        "first_429_at_rps": null,
+        "recovery_time_sec": null,
+        "ramp_log": [
+          {
+            "rps": 1,
+            "requests": 10,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 2,
+            "requests": 20,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 4,
+            "requests": 40,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 8,
+            "requests": 80,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 16,
+            "requests": 160,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 32,
+            "requests": 320,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 64,
+            "requests": 640,
+            "status_429": 0,
+            "other_errors": 0
+          }
+        ]
+      }
+    },
+    {
+      "platform": "lighter",
+      "display_name": "Lighter",
+      "rate_limit": {
+        "endpoint": "GET /api/v1/orderBookDetails",
+        "base_url": "https://mainnet.zklighter.elliot.ai",
         "method": "exponential_ramp",
         "ramp_levels_rps": [
           1,
@@ -802,6 +534,274 @@
             "requests": 640,
             "status_429": 0,
             "other_errors": 638
+          }
+        ]
+      }
+    },
+    {
+      "platform": "nado",
+      "display_name": "Nado",
+      "rate_limit": {
+        "endpoint": "GET /v1/query?type=status",
+        "base_url": "https://gateway.prod.nado.xyz",
+        "method": "exponential_ramp",
+        "ramp_levels_rps": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64
+        ],
+        "total_requests": 1270,
+        "total_429s": 0,
+        "total_errors": 0,
+        "first_429_at_rps": null,
+        "recovery_time_sec": null,
+        "ramp_log": [
+          {
+            "rps": 1,
+            "requests": 10,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 2,
+            "requests": 20,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 4,
+            "requests": 40,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 8,
+            "requests": 80,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 16,
+            "requests": 160,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 32,
+            "requests": 320,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 64,
+            "requests": 640,
+            "status_429": 0,
+            "other_errors": 0
+          }
+        ]
+      }
+    },
+    {
+      "platform": "paradex",
+      "display_name": "Paradex",
+      "rate_limit": {
+        "endpoint": "GET /v1/system/time",
+        "base_url": "https://api.testnet.paradex.trade",
+        "method": "exponential_ramp",
+        "ramp_levels_rps": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64
+        ],
+        "total_requests": 1270,
+        "total_429s": 0,
+        "total_errors": 0,
+        "first_429_at_rps": null,
+        "recovery_time_sec": null,
+        "ramp_log": [
+          {
+            "rps": 1,
+            "requests": 10,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 2,
+            "requests": 20,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 4,
+            "requests": 40,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 8,
+            "requests": 80,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 16,
+            "requests": 160,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 32,
+            "requests": 320,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 64,
+            "requests": 640,
+            "status_429": 0,
+            "other_errors": 0
+          }
+        ]
+      }
+    },
+    {
+      "platform": "standx",
+      "display_name": "StandX",
+      "rate_limit": {
+        "endpoint": "GET /api/kline/time",
+        "base_url": "https://perps.standx.com",
+        "method": "exponential_ramp",
+        "ramp_levels_rps": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64
+        ],
+        "total_requests": 1270,
+        "total_429s": 0,
+        "total_errors": 0,
+        "first_429_at_rps": null,
+        "recovery_time_sec": null,
+        "ramp_log": [
+          {
+            "rps": 1,
+            "requests": 10,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 2,
+            "requests": 20,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 4,
+            "requests": 40,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 8,
+            "requests": 80,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 16,
+            "requests": 160,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 32,
+            "requests": 320,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 64,
+            "requests": 640,
+            "status_429": 0,
+            "other_errors": 0
+          }
+        ]
+      }
+    },
+    {
+      "platform": "tradexyz",
+      "display_name": "trade[XYZ]",
+      "rate_limit": {
+        "endpoint": "POST /info",
+        "base_url": "https://api.hyperliquid.xyz",
+        "method": "exponential_ramp",
+        "ramp_levels_rps": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64
+        ],
+        "total_requests": 1270,
+        "total_429s": 0,
+        "total_errors": 0,
+        "first_429_at_rps": null,
+        "recovery_time_sec": null,
+        "ramp_log": [
+          {
+            "rps": 1,
+            "requests": 10,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 2,
+            "requests": 20,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 4,
+            "requests": 40,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 8,
+            "requests": 80,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 16,
+            "requests": 160,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 32,
+            "requests": 320,
+            "status_429": 0,
+            "other_errors": 0
+          },
+          {
+            "rps": 64,
+            "requests": 640,
+            "status_429": 0,
+            "other_errors": 0
           }
         ]
       }

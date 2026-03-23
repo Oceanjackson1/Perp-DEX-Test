@@ -48,14 +48,14 @@
   "grvt": {
     "display_name": "GRVT",
     "rest_base": "https://market-data.grvt.io",
-    "rest_testnet": "https://market-data.edge.testnet.grvt.io",
-    "ws_url": "wss://market-data.grvt.io/ws",
-    "ws_testnet": "wss://market-data.edge.testnet.grvt.io/ws",
+    "rest_testnet": "https://market-data.grvt.io",
+    "ws_url": "wss://market-data.grvt.io/ws/full",
+    "ws_testnet": "wss://market-data.grvt.io/ws/full",
     "ping_endpoint": {
       "method": "POST",
-      "path": "/full/v1/get_instrument",
-      "body": {"instrument": "BTC_USDT_Perp"},
-      "note": "Get instrument details"
+      "path": "/full/v1/all_instruments",
+      "body": {},
+      "note": "Get all instruments (POST required)"
     },
     "orderbook_ws": {
       "subscribe_msg": {"jsonrpc": "2.0", "method": "subscribe", "params": {"stream": "book.s@BTC_USDT_Perp"}, "id": 1},
@@ -180,22 +180,24 @@
       "type": "native"
     },
     "capabilities": {
-      "has_ws": true,
+      "has_ws": false,
       "has_batch": false,
       "has_testnet_funds": false,
-      "has_public_rest": true,
-      "has_order_api": true
-    }
+      "has_public_rest": false,
+      "has_order_api": true,
+      "api_private_access_only": true
+    },
+    "note": "EdgeX API requires application for access. DNS api.edgex.exchange no longer resolves."
   },
   "nado": {
     "display_name": "Nado",
-    "rest_base": "https://api.nado.xyz",
-    "ws_url": "wss://subscriptions.nado.xyz",
+    "rest_base": "https://gateway.prod.nado.xyz",
+    "ws_url": "wss://gateway.prod.nado.xyz/v1/ws",
     "ping_endpoint": {
       "method": "GET",
-      "path": "/v2/products",
+      "path": "/v1/query?type=status",
       "body": null,
-      "note": "Product list"
+      "note": "Gateway status check"
     },
     "orderbook_ws": {
       "subscribe_msg": {"method": "subscribe", "params": {"channel": "depth_diffs", "product_id": "BTC-USD"}},
@@ -217,9 +219,9 @@
     "ws_url": "wss://perps.standx.com/ws-stream/v1",
     "ping_endpoint": {
       "method": "GET",
-      "path": "/api/server_time",
+      "path": "/api/kline/time",
       "body": null,
-      "note": "Server time"
+      "note": "Server timestamp"
     },
     "orderbook_ws": {
       "subscribe_msg": {"method": "subscribe", "params": {"channel": "depth_book", "symbol": "BTC-USD"}},

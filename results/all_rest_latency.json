@@ -1,11 +1,6 @@
 {
   "test": "rest_latency",
-  "timestamp": "2026-03-23T04:34:04Z",
-  "config": {
-    "warmup": 5,
-    "samples": 100,
-    "interval_ms": 200
-  },
+  "timestamp": "2026-03-23T04:59:18Z",
   "results": [
     {
       "platform": "aster",
@@ -122,60 +117,17 @@
       "platform": "grvt",
       "display_name": "GRVT",
       "rest_latency": {
-        "status": "FAILED",
-        "endpoint": "POST /full/v1/get_instrument",
-        "errors": [
-          {
-            "sample": 0,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.48
-          },
-          {
-            "sample": 1,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 2.84
-          },
-          {
-            "sample": 2,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 2.09
-          },
-          {
-            "sample": 3,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 3.28
-          },
-          {
-            "sample": 4,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 2.99
-          },
-          {
-            "sample": 5,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 3.44
-          },
-          {
-            "sample": 6,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.53
-          },
-          {
-            "sample": 7,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.52
-          },
-          {
-            "sample": 8,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.28
-          },
-          {
-            "sample": 9,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.86
-          }
-        ]
+        "endpoint": "POST /full/v1/all_instruments",
+        "base_url": "https://market-data.grvt.io",
+        "samples": 100,
+        "errors": 0,
+        "p50_ms": 114.35,
+        "p95_ms": 135.54,
+        "p99_ms": 182.1,
+        "mean_ms": 118.18,
+        "min_ms": 111.3,
+        "max_ms": 195.26,
+        "stdev_ms": 14.31
       }
     },
     {
@@ -233,60 +185,17 @@
       "platform": "nado",
       "display_name": "Nado",
       "rest_latency": {
-        "status": "FAILED",
-        "endpoint": "GET /v2/products",
-        "errors": [
-          {
-            "sample": 0,
-            "error": "HTTP 404",
-            "latency_ms": 56.4
-          },
-          {
-            "sample": 1,
-            "error": "HTTP 404",
-            "latency_ms": 55.2
-          },
-          {
-            "sample": 2,
-            "error": "HTTP 404",
-            "latency_ms": 58.01
-          },
-          {
-            "sample": 3,
-            "error": "HTTP 404",
-            "latency_ms": 58.4
-          },
-          {
-            "sample": 4,
-            "error": "HTTP 404",
-            "latency_ms": 56.97
-          },
-          {
-            "sample": 5,
-            "error": "HTTP 404",
-            "latency_ms": 48.99
-          },
-          {
-            "sample": 6,
-            "error": "HTTP 404",
-            "latency_ms": 55.3
-          },
-          {
-            "sample": 7,
-            "error": "HTTP 404",
-            "latency_ms": 55.5
-          },
-          {
-            "sample": 8,
-            "error": "HTTP 404",
-            "latency_ms": 53.56
-          },
-          {
-            "sample": 9,
-            "error": "HTTP 404",
-            "latency_ms": 60.07
-          }
-        ]
+        "endpoint": "GET /v1/query?type=status",
+        "base_url": "https://gateway.prod.nado.xyz",
+        "samples": 100,
+        "errors": 0,
+        "p50_ms": 121.8,
+        "p95_ms": 143.95,
+        "p99_ms": 168.24,
+        "mean_ms": 124.15,
+        "min_ms": 111.71,
+        "max_ms": 213.07,
+        "stdev_ms": 12.76
       }
     },
     {
@@ -310,60 +219,17 @@
       "platform": "standx",
       "display_name": "StandX",
       "rest_latency": {
-        "status": "FAILED",
-        "endpoint": "GET /api/server_time",
-        "errors": [
-          {
-            "sample": 0,
-            "error": "HTTP 404",
-            "latency_ms": 188.95
-          },
-          {
-            "sample": 1,
-            "error": "HTTP 404",
-            "latency_ms": 182.55
-          },
-          {
-            "sample": 2,
-            "error": "HTTP 404",
-            "latency_ms": 176.65
-          },
-          {
-            "sample": 3,
-            "error": "HTTP 404",
-            "latency_ms": 177.33
-          },
-          {
-            "sample": 4,
-            "error": "HTTP 404",
-            "latency_ms": 176.54
-          },
-          {
-            "sample": 5,
-            "error": "HTTP 404",
-            "latency_ms": 175.2
-          },
-          {
-            "sample": 6,
-            "error": "HTTP 404",
-            "latency_ms": 179.13
-          },
-          {
-            "sample": 7,
-            "error": "HTTP 404",
-            "latency_ms": 177.63
-          },
-          {
-            "sample": 8,
-            "error": "HTTP 404",
-            "latency_ms": 184.13
-          },
-          {
-            "sample": 9,
-            "error": "HTTP 404",
-            "latency_ms": 189.11
-          }
-        ]
+        "endpoint": "GET /api/kline/time",
+        "base_url": "https://perps.standx.com",
+        "samples": 100,
+        "errors": 0,
+        "p50_ms": 219.33,
+        "p95_ms": 224.09,
+        "p99_ms": 265.31,
+        "mean_ms": 221.16,
+        "min_ms": 216.25,
+        "max_ms": 297.27,
+        "stdev_ms": 9.93
       }
     },
     {
