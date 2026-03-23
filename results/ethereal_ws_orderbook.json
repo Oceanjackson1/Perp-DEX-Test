@@ -1,5 +1,8 @@
 {
   "platform": "ethereal",
   "display_name": "Ethereal",
-  "ws_orderbook": "SOCKETIO_NOT_TESTED"
+  "ws_orderbook": {
+    "status": "INSUFFICIENT_DATA",
+    "messages": 0
+  }
 }

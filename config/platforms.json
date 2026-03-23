@@ -71,8 +71,8 @@
   },
   "extended": {
     "display_name": "Extended (x10)",
-    "rest_base": "https://api.x10.exchange",
-    "rest_testnet": "https://api.testnet.x10.exchange",
+    "rest_base": "https://api.starknet.extended.exchange",
+    "rest_testnet": "https://api.starknet.extended.exchange",
     "ws_url": "wss://api.starknet.extended.exchange/stream.extended.exchange/v1",
     "ping_endpoint": {
       "method": "GET",

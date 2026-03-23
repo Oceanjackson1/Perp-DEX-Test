@@ -1,200 +1,12 @@
 {
   "test": "rest_latency",
-  "timestamp": "2026-03-22T15:15:32Z",
+  "timestamp": "2026-03-23T04:34:04Z",
   "config": {
     "warmup": 5,
     "samples": 100,
     "interval_ms": 200
   },
   "results": [
-    {
-      "platform": "hyperliquid",
-      "display_name": "Hyperliquid",
-      "rest_latency": {
-        "endpoint": "POST /info",
-        "base_url": "https://api.hyperliquid-testnet.xyz",
-        "samples": 100,
-        "errors": 0,
-        "p50_ms": 218.14,
-        "p95_ms": 314.03,
-        "p99_ms": 337.93,
-        "mean_ms": 237.94,
-        "min_ms": 126.98,
-        "max_ms": 434.4,
-        "stdev_ms": 48.72
-      }
-    },
-    {
-      "platform": "lighter",
-      "display_name": "Lighter",
-      "rest_latency": {
-        "endpoint": "GET /api/v1/orderBookDetails",
-        "base_url": "https://mainnet.zklighter.elliot.ai",
-        "samples": 100,
-        "errors": 0,
-        "p50_ms": 45.84,
-        "p95_ms": 89.25,
-        "p99_ms": 261.9,
-        "mean_ms": 60.35,
-        "min_ms": 39.2,
-        "max_ms": 581.86,
-        "stdev_ms": 59.92
-      }
-    },
-    {
-      "platform": "grvt",
-      "display_name": "GRVT",
-      "rest_latency": {
-        "status": "FAILED",
-        "endpoint": "POST /full/v1/get_instrument",
-        "errors": [
-          {
-            "sample": 0,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.48
-          },
-          {
-            "sample": 1,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 2.84
-          },
-          {
-            "sample": 2,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 2.09
-          },
-          {
-            "sample": 3,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 3.28
-          },
-          {
-            "sample": 4,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 2.99
-          },
-          {
-            "sample": 5,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 3.44
-          },
-          {
-            "sample": 6,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.53
-          },
-          {
-            "sample": 7,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.52
-          },
-          {
-            "sample": 8,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.28
-          },
-          {
-            "sample": 9,
-            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.86
-          }
-        ]
-      }
-    },
-    {
-      "platform": "extended",
-      "display_name": "Extended (x10)",
-      "rest_latency": {
-        "status": "FAILED",
-        "endpoint": "GET /api/v1/info/markets",
-        "errors": [
-          {
-            "sample": 0,
-            "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 2.37
-          },
-          {
-            "sample": 1,
-            "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.89
-          },
-          {
-            "sample": 2,
-            "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 2.8
-          },
-          {
-            "sample": 3,
-            "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.68
-          },
-          {
-            "sample": 4,
-            "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.89
-          },
-          {
-            "sample": 5,
-            "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.83
-          },
-          {
-            "sample": 6,
-            "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 3.08
-          },
-          {
-            "sample": 7,
-            "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.92
-          },
-          {
-            "sample": 8,
-            "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 2.86
-          },
-          {
-            "sample": 9,
-            "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
-            "latency_ms": 1.78
-          }
-        ]
-      }
-    },
-    {
-      "platform": "paradex",
-      "display_name": "Paradex",
-      "rest_latency": {
-        "endpoint": "GET /v1/system/time",
-        "base_url": "https://api.testnet.paradex.trade",
-        "samples": 100,
-        "errors": 0,
-        "p50_ms": 135.77,
-        "p95_ms": 149.28,
-        "p99_ms": 157.44,
-        "mean_ms": 137.78,
-        "min_ms": 132.46,
-        "max_ms": 168.88,
-        "stdev_ms": 5.67
-      }
-    },
-    {
-      "platform": "ethereal",
-      "display_name": "Ethereal",
-      "rest_latency": {
-        "endpoint": "GET /v1/time",
-        "base_url": "https://api.etherealtest.net",
-        "samples": 100,
-        "errors": 0,
-        "p50_ms": 135.42,
-        "p95_ms": 156.02,
-        "p99_ms": 174.07,
-        "mean_ms": 138.38,
-        "min_ms": 132.67,
-        "max_ms": 176.01,
-        "stdev_ms": 8.09
-      }
-    },
     {
       "platform": "aster",
       "display_name": "Aster",
@@ -273,6 +85,151 @@
       }
     },
     {
+      "platform": "ethereal",
+      "display_name": "Ethereal",
+      "rest_latency": {
+        "endpoint": "GET /v1/time",
+        "base_url": "https://api.etherealtest.net",
+        "samples": 100,
+        "errors": 0,
+        "p50_ms": 135.42,
+        "p95_ms": 156.02,
+        "p99_ms": 174.07,
+        "mean_ms": 138.38,
+        "min_ms": 132.67,
+        "max_ms": 176.01,
+        "stdev_ms": 8.09
+      }
+    },
+    {
+      "platform": "extended",
+      "display_name": "Extended (x10)",
+      "rest_latency": {
+        "endpoint": "GET /api/v1/info/markets",
+        "base_url": "https://api.starknet.extended.exchange",
+        "samples": 100,
+        "errors": 0,
+        "p50_ms": 146.92,
+        "p95_ms": 158.65,
+        "p99_ms": 259.08,
+        "mean_ms": 150.49,
+        "min_ms": 142.57,
+        "max_ms": 260.27,
+        "stdev_ms": 16.63
+      }
+    },
+    {
+      "platform": "grvt",
+      "display_name": "GRVT",
+      "rest_latency": {
+        "status": "FAILED",
+        "endpoint": "POST /full/v1/get_instrument",
+        "errors": [
+          {
+            "sample": 0,
+            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+            "latency_ms": 1.48
+          },
+          {
+            "sample": 1,
+            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+            "latency_ms": 2.84
+          },
+          {
+            "sample": 2,
+            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+            "latency_ms": 2.09
+          },
+          {
+            "sample": 3,
+            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+            "latency_ms": 3.28
+          },
+          {
+            "sample": 4,
+            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+            "latency_ms": 2.99
+          },
+          {
+            "sample": 5,
+            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+            "latency_ms": 3.44
+          },
+          {
+            "sample": 6,
+            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+            "latency_ms": 1.53
+          },
+          {
+            "sample": 7,
+            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+            "latency_ms": 1.52
+          },
+          {
+            "sample": 8,
+            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+            "latency_ms": 1.28
+          },
+          {
+            "sample": 9,
+            "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+            "latency_ms": 1.86
+          }
+        ]
+      }
+    },
+    {
+      "platform": "hyperliquid",
+      "display_name": "Hyperliquid",
+      "rest_latency": {
+        "endpoint": "POST /info",
+        "base_url": "https://api.hyperliquid-testnet.xyz",
+        "samples": 100,
+        "errors": 0,
+        "p50_ms": 218.14,
+        "p95_ms": 314.03,
+        "p99_ms": 337.93,
+        "mean_ms": 237.94,
+        "min_ms": 126.98,
+        "max_ms": 434.4,
+        "stdev_ms": 48.72
+      }
+    },
+    {
+      "platform": "lighter",
+      "display_name": "Lighter",
+      "rest_latency": {
+        "endpoint": "GET /api/v1/orderBookDetails",
+        "base_url": "https://mainnet.zklighter.elliot.ai",
+        "samples": 100,
+        "errors": 0,
+        "p50_ms": 45.84,
+        "p95_ms": 89.25,
+        "p99_ms": 261.9,
+        "mean_ms": 60.35,
+        "min_ms": 39.2,
+        "max_ms": 581.86,
+        "stdev_ms": 59.92
+      }
+    },
+    {
+      "platform": "myx",
+      "display_name": "MYX Finance",
+      "rest_latency": {
+        "endpoint": "GET /v2/quote/market/contracts",
+        "base_url": "https://api.myx.finance",
+        "samples": 100,
+        "errors": 0,
+        "p50_ms": 161.09,
+        "p95_ms": 253.89,
+        "p99_ms": 502.58,
+        "mean_ms": 177.14,
+        "min_ms": 128.35,
+        "max_ms": 679.49,
+        "stdev_ms": 67.16
+      }
+    },
+    {
       "platform": "nado",
       "display_name": "Nado",
       "rest_latency": {
@@ -330,6 +287,23 @@
             "latency_ms": 60.07
           }
         ]
+      }
+    },
+    {
+      "platform": "paradex",
+      "display_name": "Paradex",
+      "rest_latency": {
+        "endpoint": "GET /v1/system/time",
+        "base_url": "https://api.testnet.paradex.trade",
+        "samples": 100,
+        "errors": 0,
+        "p50_ms": 135.77,
+        "p95_ms": 149.28,
+        "p99_ms": 157.44,
+        "mean_ms": 137.78,
+        "min_ms": 132.46,
+        "max_ms": 168.88,
+        "stdev_ms": 5.67
       }
     },
     {
@@ -407,23 +381,6 @@
         "min_ms": 171.64,
         "max_ms": 671.18,
         "stdev_ms": 92.24
-      }
-    },
-    {
-      "platform": "myx",
-      "display_name": "MYX Finance",
-      "rest_latency": {
-        "endpoint": "GET /v2/quote/market/contracts",
-        "base_url": "https://api.myx.finance",
-        "samples": 100,
-        "errors": 0,
-        "p50_ms": 161.09,
-        "p95_ms": 253.89,
-        "p99_ms": 502.58,
-        "mean_ms": 177.14,
-        "min_ms": 128.35,
-        "max_ms": 679.49,
-        "stdev_ms": 67.16
       }
     },
     {

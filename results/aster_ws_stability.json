@@ -1,0 +1,16 @@
+{
+  "platform": "aster",
+  "display_name": "Aster",
+  "ws_stability": {
+    "ws_url": "wss://fstream.asterdex.com/ws/btcusdt@depth@100ms",
+    "target_duration_min": 10,
+    "actual_duration_min": 10.0,
+    "total_messages": 4965,
+    "messages_per_min": 496.4,
+    "disconnects": 0,
+    "disconnect_log": [],
+    "reconnect_times_ms": [],
+    "avg_reconnect_ms": null,
+    "total_connections": 1
+  }
+}

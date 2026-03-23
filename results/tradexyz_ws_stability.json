@@ -1,0 +1,16 @@
+{
+  "platform": "tradexyz",
+  "display_name": "trade[XYZ]",
+  "ws_stability": {
+    "ws_url": "wss://api.hyperliquid.xyz/ws",
+    "target_duration_min": 10,
+    "actual_duration_min": 10.01,
+    "total_messages": 1093,
+    "messages_per_min": 109.2,
+    "disconnects": 0,
+    "disconnect_log": [],
+    "reconnect_times_ms": [],
+    "avg_reconnect_ms": null,
+    "total_connections": 1
+  }
+}

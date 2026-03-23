@@ -1,0 +1,42 @@
+{
+  "platform": "lighter",
+  "display_name": "Lighter",
+  "ws_stability": {
+    "ws_url": "wss://mainnet.zklighter.elliot.ai/stream",
+    "target_duration_min": 10,
+    "actual_duration_min": 10.01,
+    "total_messages": 9734,
+    "messages_per_min": 972.8,
+    "disconnects": 4,
+    "disconnect_log": [
+      {
+        "at_seconds": 120.54,
+        "reason": "received 1008 (policy violation) no pong; then sent 1008 (policy violation) no pong",
+        "connection_num": 1
+      },
+      {
+        "at_seconds": 241.95,
+        "reason": "received 1008 (policy violation) no pong; then sent 1008 (policy violation) no pong",
+        "connection_num": 2
+      },
+      {
+        "at_seconds": 363.35,
+        "reason": "received 1008 (policy violation) no pong; then sent 1008 (policy violation) no pong",
+        "connection_num": 3
+      },
+      {
+        "at_seconds": 484.76,
+        "reason": "received 1008 (policy violation) no pong; then sent 1008 (policy violation) no pong",
+        "connection_num": 4
+      }
+    ],
+    "reconnect_times_ms": [
+      399.49174993671477,
+      399.50441697146744,
+      398.6805840395391,
+      413.8385000405833
+    ],
+    "avg_reconnect_ms": 402.9,
+    "total_connections": 5
+  }
+}

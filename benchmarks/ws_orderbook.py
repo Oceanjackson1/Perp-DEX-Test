@@ -203,6 +203,91 @@ async def benchmark_binance_style_ws(platform_id: str, config: dict) -> dict:
     }
 
 
+async def benchmark_socketio_ws(platform_id: str, config: dict) -> dict:
+    """Benchmark platforms using Socket.IO protocol (e.g., Ethereal)."""
+    try:
+        import socketio
+    except ImportError:
+        return {"status": "SOCKETIO_LIB_MISSING", "error": "pip install python-socketio[asyncio_client]"}
+
+    display_name = config["display_name"]
+    ws_url = config.get("ws_url", "")
+    # Socket.IO connects to base HTTP URL, not wss:// directly
+    # Socket.IO connects to base HTTP URL; try ws.ethereal.trade (v1) first
+    base_url = ws_url.replace("wss://", "https://").replace("/v1/stream", "")
+    if "ws2." in base_url:
+        base_url = base_url.replace("ws2.", "ws.")
+
+    print(f"  [{display_name}] Connecting via Socket.IO to {base_url}")
+
+    timestamps = []
+    message_count = 0
+    connected = asyncio.Event()
+    done = asyncio.Event()
+
+    sio = socketio.AsyncClient(
+        reconnection=False,
+        logger=False,
+        engineio_logger=False,
+    )
+
+    @sio.on("*")
+    async def catch_all(event, data=None):
+        nonlocal message_count
+        timestamps.append(time.perf_counter())
+        message_count += 1
+
+    @sio.on("connect")
+    async def on_connect():
+        connected.set()
+        print(f"  [{display_name}] Socket.IO connected")
+
+    @sio.on("connect_error")
+    async def on_error(data=None):
+        print(f"  [{display_name}] Socket.IO connect error: {data}")
+        done.set()
+
+    try:
+        await sio.connect(base_url, transports=["websocket"], wait_timeout=10)
+        await asyncio.wait_for(connected.wait(), timeout=10)
+
+        print(f"  [{display_name}] Collecting for {DURATION_SEC}s...")
+        await asyncio.sleep(DURATION_SEC)
+        await sio.disconnect()
+
+    except Exception as e:
+        print(f"  [{display_name}] Socket.IO ERROR: {e}")
+        try:
+            await sio.disconnect()
+        except Exception:
+            pass
+        return {"status": "ERROR", "error": str(e)}
+
+    if len(timestamps) < 2:
+        return {"status": "INSUFFICIENT_DATA", "messages": message_count}
+
+    intervals = [(timestamps[i] - timestamps[i - 1]) * 1000 for i in range(1, len(timestamps))]
+
+    result = {
+        "status": "OK",
+        "ws_url": base_url,
+        "protocol": "socket.io",
+        "duration_sec": DURATION_SEC,
+        "total_messages": message_count,
+        "messages_per_sec": round(message_count / DURATION_SEC, 2),
+        "interval_p50_ms": round(percentile(intervals, 50), 2),
+        "interval_p95_ms": round(percentile(intervals, 95), 2),
+        "interval_mean_ms": round(statistics.mean(intervals), 2),
+        "interval_min_ms": round(min(intervals), 2),
+        "interval_max_ms": round(max(intervals), 2),
+        "server_to_client_p50_ms": None,
+    }
+
+    print(f"  [{display_name}] {message_count} msgs in {DURATION_SEC}s "
+          f"({result['messages_per_sec']}/s), interval p50={result['interval_p50_ms']}ms")
+    return result
+
+
 async def benchmark_platform(platform_id: str, config: dict) -> dict:
     display_name = config["display_name"]
     caps = config.get("capabilities", {})
@@ -216,11 +301,11 @@ async def benchmark_platform(platform_id: str, config: dict) -> dict:
         }
 
     if caps.get("ws_is_socketio"):
-        print(f"  [{display_name}] SKIP - Socket.IO (not raw WS, needs separate client)")
+        result = await benchmark_socketio_ws(platform_id, config)
         return {
             "platform": platform_id,
             "display_name": display_name,
-            "ws_orderbook": "SOCKETIO_NOT_TESTED",
+            "ws_orderbook": result,
         }
 
     ws_config = config.get("orderbook_ws", {})
