@@ -23,7 +23,7 @@
 | **Nado** | 未公开 | 未公开 | 未公开 | 5/钱包 | 三层 API 架构 |
 | **StandX** | 令牌桶: ~22 req/秒持续 | 同上 | 支持批量撤单 | 10/IP | 50 req/秒 突发 |
 | **trade[XYZ]** | 继承 Hyperliquid | 继承 Hyperliquid | 继承 Hyperliquid | 继承 Hyperliquid | 底层即 HL |
-| **MYX Finance** | 不适用 | 不适用（链上交易） | 不适用 | 无 WebSocket | 无 REST 交易 API |
+| **MYX Finance** | 未公开 | REST API 支持下单 | 不适用 | 无 WebSocket | 有 REST API (api.myx.finance) |
 | **Variational** | 不适用 | API 未上线 | API 未上线 | 未上线 | 候补名单中 |
 
 ### 1.2 订单类型对比
@@ -49,7 +49,7 @@
 | 平台 | 批量下单 | 批量撤单 | 一键撤全 | 批量修改 | 备注 |
 |------|---------|---------|---------|---------|------|
 | **Hyperliquid** | ✅ 数组式 | ✅ 数组式 + cloid | ✅ scheduleCancel (死人开关) | ✅ batchModify | 最完整；nonce 作废可替代撤单 |
-| **Lighter** | ✅ sendTxBatch (15笔/批) | ✅ L2CancelAllOrders | ✅ | ✅ L2ModifyOrder | GroupedOrders 消耗 1 配额单位 |
+| **Lighter** | ✅ sendTxBatch (50笔/批) | ✅ L2CancelAllOrders | ✅ | ✅ L2ModifyOrder | GroupedOrders 消耗 1 配额单位 |
 | **GRVT** | ❌ 无批量下单 | ✅ cancel_all_orders | ✅ | ❌ | 高速率弥补（26单/秒） |
 | **Extended** | ❌ | ✅ mass_cancel | ❌ 未确认 | ❌ | |
 | **Paradex** | ✅ 1-50单/批 | ✅ 1-50单/批 | ❌ 未确认 | ❌ | 批量=1个限制单位，50x 效率 |
@@ -129,7 +129,7 @@
 | 平台 | 最大子账户数 | 策略隔离 | 独立保证金 | API Key 数量 | 保证金模式 |
 |------|------------|---------|-----------|-------------|-----------|
 | **EdgeX** | **20** | ✅ 完全隔离清算 | ✅ 逐仓/全仓 | 未公开 | 全仓 + 逐仓 |
-| **Lighter** | 多个 (共享配额) | ✅ | ✅ | **255/账户** | 统一交易账户 (UTA) |
+| **Lighter** | 多个 (共享配额) | ✅ | ✅ | **253/账户** | 统一交易账户 (UTA) |
 | **Hyperliquid** | **10** | ✅ 独立持仓/保证金 | ✅ | 主: 4; 子: 2/个 | 标准/统一/组合保证金 |
 | **Extended** | **10** | ✅ 每子账户独立 Stark Key | ✅ | 每子账户独立 | 全仓 |
 | **GRVT** | 多个 (Funding→Trading) | ✅ | ✅ | **5/Funding + 5/Trading** | 全仓 |
@@ -157,7 +157,7 @@
 | **StandX** | 3 (price, depth_book, public_trade) | 4 (order, position, balance, trade) | 未公开 | 原生 WS | — |
 | **EdgeX** | 2 (ticker, orderbook) | 12+ 事件类型 (自动推送) | 未公开 | 原生 WS | — |
 | **Extended** | 6 (orderbook, trades, funding, candles, mark_price, index_price) | 1 (account_updates) | 未公开 | 原生 WS | — |
-| **Ethereal** | 有限文档 | 3 (ORDER_FILL, ORDER_UPDATE, TOKEN_TRANSFER) | — | Socket.IO | — |
+| **Ethereal** | 有限文档 | 3 (ORDER_FILL, ORDER_UPDATE, TOKEN_TRANSFER) | — | 原生 WS v2 (主要) + Socket.IO (已废弃) | — |
 | **trade[XYZ]** | 继承 Hyperliquid | 继承 Hyperliquid | ~500ms | 继承 HL | — |
 | **MYX Finance** | ❌ 无 WebSocket | ❌ | — | — | — |
 | **Variational** | ❌ 未上线 | ❌ | — | — | — |
@@ -189,10 +189,10 @@
 | 平台 | 最大杠杆 | 永续交易对数 | 资产类型 | 最大仓位 | 抵押品 |
 |------|---------|------------|---------|---------|--------|
 | **Aster** | **1,001x** | ~96 | 加密 + 美股 (AAPL 等) | 未公开 | 多抵押品 |
-| **MYX Finance** | **125x** | ~13+ | 加密 | 未公开 | USDC |
+| **MYX Finance** | **50x** | ~13+ | 加密 | 未公开 | USDC |
 | **EdgeX** | **100x** | 100+ | 加密 | 未公开 | USDC |
-| **Extended** | **100x** | 50+ | 加密 + TradFi (EUR/USD, XAU, S&P500, 原油) | 未公开 | USDC |
-| **StandX** | **100x** | ~46 | 加密 + 黄金/白银 | 未公开 | DUSD (生息稳定币) |
+| **Extended** | **100x** | 121+ | 加密 + TradFi (EUR/USD, XAU, S&P500, 原油) | 未公开 | USDC |
+| **StandX** | **100x** | 4+ | 加密 + 黄金/白银 | 未公开 | DUSD (生息稳定币) |
 | **Lighter** | **50x** (BTC/ETH) | ~80+ | 加密 + 外汇 + 商品 (XAU, XAG) | 事实上无限 (OI 限制) | USDC |
 | **Paradex** | **50x** | **250+** | 加密 + 永续期权 + 现货 | 未公开 | USDC |
 | **Hyperliquid** | **50x** (部分新对50x) | **~313** | 加密 + S&P 500 + 美股 | BTC ≥25x: $15M | USDC |
@@ -200,7 +200,7 @@
 | **GRVT** | **50x** | ~96 | 加密 + 期权 | 未公开 | USDT |
 | **Nado** | **40x** | 30+ | 加密 + TradFi | 未公开 | USDT0 |
 | **trade[XYZ]** | ~50x (继承 HL) | 数百 + TradFi | 加密 + S&P 500 (授权) + 黄金/白银 | 继承 HL | USDC |
-| **Ethereal** | **20x** (BTC/ETH) | **3** | 仅加密 (BTC, ETH, SOL) | BTC/ETH: $2.5M; SOL: $500K | USDe |
+| **Ethereal** | **20x** (BTC/ETH) | **15+** | 加密 (BTC, ETH, SOL 等) | BTC/ETH: $2.5M; SOL: $500K | USDe |
 
 ---
 
@@ -211,7 +211,7 @@
 | 平台 | 独特功能 | 机构价值 |
 |------|---------|---------|
 | **Hyperliquid** | Agent 钱包 (不暴露主钱包)、Builder Codes (前端/聚合器赚手续费)、共识层优先处理 Maker 订单、自建节点 (<20ms)、死人开关 | 最成熟的去中心化做市基础设施 |
-| **Lighter** | 0ms Maker 延迟 (无速度碰撞)、ZK 证明验证撮合公平性、255 API Key/账户、免费 Standard 账户 + 付费 Premium 双轨制 | 唯一对 HFT 做出明确承诺的 DEX |
+| **Lighter** | 0ms Maker 延迟 (无速度碰撞)、ZK 证明验证撮合公平性、253 可编程 API Key/账户 (索引 2-254)、免费 Standard 账户 + 付费 Premium 双轨制 | 唯一对 HFT 做出明确承诺的 DEX |
 | **GRVT** | 全层级 Maker 返佣、RFQ 大宗交易、期权合约、Dfns MPC 企业级托管、Business Account (多用户+角色权限) | 最接近传统金融机构架构 |
 | **Extended** | TradFi 永续 (EUR/USD, 原油, S&P500)、AWS 东京托管推荐、100x 杠杆 | TradFi 资产覆盖最广 |
 | **Paradex** | 零费率永续 (零售)、永续期权、250+ 交易对、批量下单 50 单/批 (1 限制单位)、Starknet 隐私 | 交易对数 + 期权 + 零费率三重优势 |
@@ -244,11 +244,11 @@
 | **Nado** | 6 | 5 | 7 | 7 | 6 | 8 | 7 | **6.4** |
 | **StandX** | 6 | 6 | 6 | 7 | 3 | 3 | 5 | **5.3** |
 | **trade[XYZ]** | 7 | 8 | 9 | 5 | 7 | 8 | 6 | **7.0** |
-| **Ethereal** | 4 | 9* | 8 | 6 | 3 | 4 | 9* | **5.5** |
-| **MYX Finance** | 2 | 1 | 3 | 6 | 1 | 1 | 2 | **2.3** |
+| **Ethereal** | 4 | 5* | 8 | 6 | 3 | 4 | 5* | **4.5** |
+| **MYX Finance** | 4 | 2 | 4 | 6 | 1 | 2 | 2 | **3.2** |
 | **Variational** | 1 | 1 | 3 | 10 | 1 | 2 | 1 | **2.0** |
 
-*Ethereal 延迟/吞吐基于声称值，实际验证有限（仅 3 个交易对）
+*Ethereal 延迟/吞吐基于平台声称值（<20ms、100万 OPS），实测 REST p50=135ms，WS 测试未收到数据，声称延迟完全未经独立验证
 
 ---
 
@@ -262,7 +262,7 @@
 - **适合：** 量化基金、算法交易、做市商（自建节点后）
 
 #### Lighter
-- **优势：** 0ms Maker 延迟、ZK 证明公平撮合、255 API Key/账户、Standard 免费 + Premium 分级
+- **优势：** 0ms Maker 延迟、ZK 证明公平撮合、253 可编程 API Key/账户、Standard 免费 + Premium 分级
 - **劣势：** SDK 仅 Python/Go、无 CCXT、社区较小
 - **适合：** HFT 做市商、低延迟策略、需要可证明公平性的机构
 
@@ -297,8 +297,8 @@
 
 | 平台 | 原因 |
 |------|------|
-| **Ethereal** | 仅 3 交易对、20x 最大杠杆、文档不完善、声称延迟未经验证 |
-| **MYX Finance** | 无 REST 交易 API、无 WebSocket、仅链上操作 |
+| **Ethereal** | 15+ 交易对但 20x 最大杠杆、文档不完善、声称延迟 (<20ms) 完全未经验证（实测 REST p50=135ms） |
+| **MYX Finance** | REST API 存在 (api.myx.finance) 但无 WebSocket；50x 最大杠杆（非 125x，125x 为资本效率） |
 | **Variational** | API 未上线、RFQ 模型（非订单簿）、500+ 市场但无法程序化交易 |
 
 ---
@@ -329,3 +329,22 @@
 - StandX: https://docs.standx.com/docs/stand-x-perps-solutions/trading-fee
 - MYX Finance: https://myxfinance.gitbook.io/myx/protocol/trading-costs
 - Variational: https://docs.variational.io/omni/trading/fees
+
+---
+
+## 勘误记录 (2026-03-23 审查后修正)
+
+经 70+ 项事实核查后，修正以下错误：
+
+| # | 平台 | 原始声称 | 修正后 | 严重度 |
+|---|------|---------|--------|--------|
+| 1 | **StandX** | ~46 个交易对 | **4+ 个** (BTC, ETH, XAU, XAG 经 API 确认) | 严重 |
+| 2 | **MYX Finance** | 最大杠杆 125x | **50x** (125x 是 MPM 资本效率，非交易杠杆) | 严重 |
+| 3 | **MYX Finance** | 无 REST 交易 API | **有 REST API** (api.myx.finance 支持下单) | 严重 |
+| 4 | **Ethereal** | 仅 3 个交易对 | **15+ 个主网产品** (API 确认) | 中等 |
+| 5 | **Extended** | 50+ 交易对 | **121+ 个** (API 确认) | 中等 |
+| 6 | **Lighter** | sendTxBatch 最多 15 笔 | **50 笔** (官方 API 文档) | 中等 |
+| 7 | **Lighter** | 255 API Key/账户 | **253 可编程 Key** (索引 0-1 保留 UI，255 为查询) | 轻微 |
+| 8 | **Ethereal** | WebSocket 使用 Socket.IO | **原生 WS v2 为主**，Socket.IO 已废弃 | 中等 |
+| 9 | **Ethereal** | 延迟评分 9 分 | **降至 5 分** (声称未经验证，实测 REST p50=135ms) | 中等 |
+| 10 | **Nado** | NLP = Nado Liquidity Program | **NLP = Nado Liquidity Provider** (零售 LP 金库) | 轻微 |
