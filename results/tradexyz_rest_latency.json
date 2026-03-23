@@ -1,0 +1,17 @@
+{
+  "platform": "tradexyz",
+  "display_name": "trade[XYZ]",
+  "rest_latency": {
+    "endpoint": "POST /info",
+    "base_url": "https://api.hyperliquid.xyz",
+    "samples": 100,
+    "errors": 0,
+    "p50_ms": 176.65,
+    "p95_ms": 323.43,
+    "p99_ms": 660.06,
+    "mean_ms": 208.76,
+    "min_ms": 171.64,
+    "max_ms": 671.18,
+    "stdev_ms": 92.24
+  }
+}

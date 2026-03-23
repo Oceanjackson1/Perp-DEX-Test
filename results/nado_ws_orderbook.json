@@ -1,0 +1,8 @@
+{
+  "platform": "nado",
+  "display_name": "Nado",
+  "ws_orderbook": {
+    "status": "ERROR",
+    "error": "server rejected WebSocket connection: HTTP 404"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "platform": "lighter",
+  "display_name": "Lighter",
+  "ws_orderbook": {
+    "status": "OK",
+    "ws_url": "wss://mainnet.zklighter.elliot.ai/stream",
+    "duration_sec": 60,
+    "total_messages": 840,
+    "messages_per_sec": 14.0,
+    "interval_p50_ms": 51.38,
+    "interval_p95_ms": 159.37,
+    "interval_mean_ms": 71.59,
+    "interval_min_ms": 0.02,
+    "interval_max_ms": 605.74,
+    "server_to_client_p50_ms": 12.32,
+    "server_to_client_p95_ms": 19.57,
+    "server_to_client_samples": 838
+  }
+}

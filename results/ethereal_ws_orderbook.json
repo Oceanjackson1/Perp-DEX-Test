@@ -1,0 +1,5 @@
+{
+  "platform": "ethereal",
+  "display_name": "Ethereal",
+  "ws_orderbook": "SOCKETIO_NOT_TESTED"
+}

@@ -1,0 +1,17 @@
+{
+  "platform": "paradex",
+  "display_name": "Paradex",
+  "rest_latency": {
+    "endpoint": "GET /v1/system/time",
+    "base_url": "https://api.testnet.paradex.trade",
+    "samples": 100,
+    "errors": 0,
+    "p50_ms": 135.77,
+    "p95_ms": 149.28,
+    "p99_ms": 157.44,
+    "mean_ms": 137.78,
+    "min_ms": 132.46,
+    "max_ms": 168.88,
+    "stdev_ms": 5.67
+  }
+}

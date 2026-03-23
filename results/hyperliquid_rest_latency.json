@@ -1,0 +1,17 @@
+{
+  "platform": "hyperliquid",
+  "display_name": "Hyperliquid",
+  "rest_latency": {
+    "endpoint": "POST /info",
+    "base_url": "https://api.hyperliquid-testnet.xyz",
+    "samples": 100,
+    "errors": 0,
+    "p50_ms": 218.14,
+    "p95_ms": 314.03,
+    "p99_ms": 337.93,
+    "mean_ms": 237.94,
+    "min_ms": 126.98,
+    "max_ms": 434.4,
+    "stdev_ms": 48.72
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "platform": "extended",
+  "display_name": "Extended (x10)",
+  "order_roundtrip": {
+    "status": "SDK_NOT_AVAILABLE",
+    "note": "x10-perpetual SDK not installed. Run: pip install x10-perpetual"
+  }
+}

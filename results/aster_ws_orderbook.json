@@ -1,0 +1,17 @@
+{
+  "platform": "aster",
+  "display_name": "Aster",
+  "ws_orderbook": {
+    "status": "OK",
+    "ws_url": "wss://fstream.asterdex.com/ws/btcusdt@depth@100ms",
+    "duration_sec": 60,
+    "total_messages": 497,
+    "messages_per_sec": 8.28,
+    "interval_p50_ms": 111.61,
+    "interval_p95_ms": 169.29,
+    "interval_mean_ms": 120.94,
+    "interval_min_ms": 86.93,
+    "interval_max_ms": 289.28,
+    "server_to_client_p50_ms": null
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "test": "batch_throughput",
+  "timestamp": "2026-03-23T03:17:45Z",
+  "note": "Plan A ($0 budget): batch throughput tests require funded accounts. Platforms with batch support: Hyperliquid, Lighter, Paradex, Aster, trade[XYZ].",
+  "results": [
+    {
+      "platform": "hyperliquid",
+      "display_name": "Hyperliquid",
+      "batch_throughput": "NO_TESTNET_FUNDS"
+    },
+    {
+      "platform": "lighter",
+      "display_name": "Lighter",
+      "batch_throughput": "NO_TESTNET_FUNDS"
+    },
+    {
+      "platform": "grvt",
+      "display_name": "GRVT",
+      "batch_throughput": "NO_BATCH_SUPPORT"
+    },
+    {
+      "platform": "extended",
+      "display_name": "Extended (x10)",
+      "batch_throughput": "NO_BATCH_SUPPORT"
+    },
+    {
+      "platform": "paradex",
+      "display_name": "Paradex",
+      "batch_throughput": "SDK_NOT_IMPLEMENTED"
+    },
+    {
+      "platform": "ethereal",
+      "display_name": "Ethereal",
+      "batch_throughput": "NO_BATCH_SUPPORT"
+    },
+    {
+      "platform": "aster",
+      "display_name": "Aster",
+      "batch_throughput": "NO_TESTNET_FUNDS"
+    },
+    {
+      "platform": "edgex",
+      "display_name": "EdgeX",
+      "batch_throughput": "NO_BATCH_SUPPORT"
+    },
+    {
+      "platform": "nado",
+      "display_name": "Nado",
+      "batch_throughput": "NO_BATCH_SUPPORT"
+    },
+    {
+      "platform": "standx",
+      "display_name": "StandX",
+      "batch_throughput": "NO_BATCH_SUPPORT"
+    },
+    {
+      "platform": "tradexyz",
+      "display_name": "trade[XYZ]",
+      "batch_throughput": "NO_TESTNET_FUNDS"
+    },
+    {
+      "platform": "myx",
+      "display_name": "MYX Finance",
+      "batch_throughput": "NO_BATCH_SUPPORT"
+    },
+    {
+      "platform": "variational",
+      "display_name": "Variational",
+      "batch_throughput": "NO_BATCH_SUPPORT"
+    }
+  ]
+}

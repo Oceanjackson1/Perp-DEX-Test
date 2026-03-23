@@ -164,7 +164,9 @@ async def test_extended_roundtrip() -> dict:
     return result
 
 
-async def run_all(platform_filter: str = "all"):
+async def run_all(platform_filter: str = "all", rounds: int = ROUNDS):
+    global ROUNDS
+    ROUNDS = rounds
     RESULTS_DIR.mkdir(exist_ok=True)
 
     print(f"\n{'='*60}")
@@ -225,10 +227,7 @@ def main():
     parser.add_argument("--rounds", type=int, default=ROUNDS)
     args = parser.parse_args()
 
-    global ROUNDS
-    ROUNDS = args.rounds
-
-    asyncio.run(run_all(args.platform))
+    asyncio.run(run_all(args.platform, args.rounds))
 
 
 if __name__ == "__main__":

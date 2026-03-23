@@ -1,0 +1,17 @@
+{
+  "platform": "aster",
+  "display_name": "Aster",
+  "rest_latency": {
+    "endpoint": "GET /fapi/v1/ping",
+    "base_url": "https://fapi.asterdex.com",
+    "samples": 100,
+    "errors": 0,
+    "p50_ms": 138.39,
+    "p95_ms": 144.04,
+    "p99_ms": 148.61,
+    "mean_ms": 139.05,
+    "min_ms": 134.8,
+    "max_ms": 148.94,
+    "stdev_ms": 2.78
+  }
+}

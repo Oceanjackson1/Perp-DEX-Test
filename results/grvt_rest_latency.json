@@ -1,0 +1,60 @@
+{
+  "platform": "grvt",
+  "display_name": "GRVT",
+  "rest_latency": {
+    "status": "FAILED",
+    "endpoint": "POST /full/v1/get_instrument",
+    "errors": [
+      {
+        "sample": 0,
+        "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.48
+      },
+      {
+        "sample": 1,
+        "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 2.84
+      },
+      {
+        "sample": 2,
+        "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 2.09
+      },
+      {
+        "sample": 3,
+        "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 3.28
+      },
+      {
+        "sample": 4,
+        "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 2.99
+      },
+      {
+        "sample": 5,
+        "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 3.44
+      },
+      {
+        "sample": 6,
+        "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.53
+      },
+      {
+        "sample": 7,
+        "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.52
+      },
+      {
+        "sample": 8,
+        "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.28
+      },
+      {
+        "sample": 9,
+        "error": "Cannot connect to host market-data.edge.testnet.grvt.io:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.86
+      }
+    ]
+  }
+}

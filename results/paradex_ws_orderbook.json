@@ -1,0 +1,8 @@
+{
+  "platform": "paradex",
+  "display_name": "Paradex",
+  "ws_orderbook": {
+    "status": "ERROR",
+    "error": "[Errno 8] nodename nor servname provided, or not known"
+  }
+}

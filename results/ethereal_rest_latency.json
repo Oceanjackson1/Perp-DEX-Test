@@ -1,0 +1,17 @@
+{
+  "platform": "ethereal",
+  "display_name": "Ethereal",
+  "rest_latency": {
+    "endpoint": "GET /v1/time",
+    "base_url": "https://api.etherealtest.net",
+    "samples": 100,
+    "errors": 0,
+    "p50_ms": 135.42,
+    "p95_ms": 156.02,
+    "p99_ms": 174.07,
+    "mean_ms": 138.38,
+    "min_ms": 132.67,
+    "max_ms": 176.01,
+    "stdev_ms": 8.09
+  }
+}

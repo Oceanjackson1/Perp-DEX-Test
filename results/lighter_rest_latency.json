@@ -1,0 +1,17 @@
+{
+  "platform": "lighter",
+  "display_name": "Lighter",
+  "rest_latency": {
+    "endpoint": "GET /api/v1/orderBookDetails",
+    "base_url": "https://mainnet.zklighter.elliot.ai",
+    "samples": 100,
+    "errors": 0,
+    "p50_ms": 45.84,
+    "p95_ms": 89.25,
+    "p99_ms": 261.9,
+    "mean_ms": 60.35,
+    "min_ms": 39.2,
+    "max_ms": 581.86,
+    "stdev_ms": 59.92
+  }
+}

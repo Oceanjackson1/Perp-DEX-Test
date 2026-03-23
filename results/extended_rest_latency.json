@@ -1,0 +1,60 @@
+{
+  "platform": "extended",
+  "display_name": "Extended (x10)",
+  "rest_latency": {
+    "status": "FAILED",
+    "endpoint": "GET /api/v1/info/markets",
+    "errors": [
+      {
+        "sample": 0,
+        "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 2.37
+      },
+      {
+        "sample": 1,
+        "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.89
+      },
+      {
+        "sample": 2,
+        "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 2.8
+      },
+      {
+        "sample": 3,
+        "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.68
+      },
+      {
+        "sample": 4,
+        "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.89
+      },
+      {
+        "sample": 5,
+        "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.83
+      },
+      {
+        "sample": 6,
+        "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 3.08
+      },
+      {
+        "sample": 7,
+        "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.92
+      },
+      {
+        "sample": 8,
+        "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 2.86
+      },
+      {
+        "sample": 9,
+        "error": "Cannot connect to host api.testnet.x10.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.78
+      }
+    ]
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "test": "order_roundtrip",
+  "timestamp": "2026-03-22T15:24:09Z",
+  "rounds": 20,
+  "results": [
+    {
+      "platform": "extended",
+      "display_name": "Extended (x10)",
+      "order_roundtrip": {
+        "status": "SDK_NOT_AVAILABLE",
+        "note": "x10-perpetual SDK not installed. Run: pip install x10-perpetual"
+      }
+    },
+    {
+      "platform": "hyperliquid",
+      "display_name": "Hyperliquid",
+      "order_roundtrip": "NO_TESTNET_FUNDS"
+    },
+    {
+      "platform": "lighter",
+      "display_name": "Lighter",
+      "order_roundtrip": "NO_TESTNET_FUNDS"
+    },
+    {
+      "platform": "grvt",
+      "display_name": "GRVT",
+      "order_roundtrip": "SDK_NOT_IMPLEMENTED"
+    },
+    {
+      "platform": "paradex",
+      "display_name": "Paradex",
+      "order_roundtrip": "SDK_NOT_IMPLEMENTED"
+    },
+    {
+      "platform": "ethereal",
+      "display_name": "Ethereal",
+      "order_roundtrip": "NO_TESTNET_FUNDS"
+    },
+    {
+      "platform": "aster",
+      "display_name": "Aster",
+      "order_roundtrip": "NO_TESTNET_FUNDS"
+    },
+    {
+      "platform": "edgex",
+      "display_name": "EdgeX",
+      "order_roundtrip": "NO_TESTNET_FUNDS"
+    },
+    {
+      "platform": "nado",
+      "display_name": "Nado",
+      "order_roundtrip": "NO_TESTNET_FUNDS"
+    },
+    {
+      "platform": "standx",
+      "display_name": "StandX",
+      "order_roundtrip": "NO_TESTNET_FUNDS"
+    },
+    {
+      "platform": "tradexyz",
+      "display_name": "trade[XYZ]",
+      "order_roundtrip": "NO_TESTNET_FUNDS"
+    },
+    {
+      "platform": "myx",
+      "display_name": "MYX Finance",
+      "order_roundtrip": "NO_TESTNET_FUNDS"
+    },
+    {
+      "platform": "variational",
+      "display_name": "Variational",
+      "order_roundtrip": "NO_TESTNET_FUNDS"
+    }
+  ]
+}

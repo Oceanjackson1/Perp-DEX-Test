@@ -1,0 +1,67 @@
+{
+  "platform": "aster",
+  "display_name": "Aster",
+  "rate_limit": {
+    "endpoint": "GET /fapi/v1/ping",
+    "base_url": "https://fapi.asterdex.com",
+    "method": "exponential_ramp",
+    "ramp_levels_rps": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "total_requests": 1251,
+    "total_429s": 0,
+    "total_errors": 19,
+    "first_429_at_rps": null,
+    "recovery_time_sec": null,
+    "ramp_log": [
+      {
+        "rps": 1,
+        "requests": 10,
+        "status_429": 0,
+        "other_errors": 0
+      },
+      {
+        "rps": 2,
+        "requests": 20,
+        "status_429": 0,
+        "other_errors": 0
+      },
+      {
+        "rps": 4,
+        "requests": 40,
+        "status_429": 0,
+        "other_errors": 0
+      },
+      {
+        "rps": 8,
+        "requests": 80,
+        "status_429": 0,
+        "other_errors": 0
+      },
+      {
+        "rps": 16,
+        "requests": 160,
+        "status_429": 0,
+        "other_errors": 0
+      },
+      {
+        "rps": 32,
+        "requests": 320,
+        "status_429": 0,
+        "other_errors": 3
+      },
+      {
+        "rps": 64,
+        "requests": 640,
+        "status_429": 0,
+        "other_errors": 16
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "platform": "hyperliquid",
+  "display_name": "Hyperliquid",
+  "ws_orderbook": {
+    "status": "OK",
+    "ws_url": "wss://api.hyperliquid.xyz/ws",
+    "duration_sec": 60,
+    "total_messages": 113,
+    "messages_per_sec": 1.88,
+    "interval_p50_ms": 546.09,
+    "interval_p95_ms": 753.8,
+    "interval_mean_ms": 537.57,
+    "interval_min_ms": 0.02,
+    "interval_max_ms": 1040.88,
+    "server_to_client_p50_ms": null
+  }
+}

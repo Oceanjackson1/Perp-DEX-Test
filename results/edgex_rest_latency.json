@@ -1,0 +1,60 @@
+{
+  "platform": "edgex",
+  "display_name": "EdgeX",
+  "rest_latency": {
+    "status": "FAILED",
+    "endpoint": "GET /api/v1/public/funding",
+    "errors": [
+      {
+        "sample": 0,
+        "error": "Cannot connect to host api.edgex.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.63
+      },
+      {
+        "sample": 1,
+        "error": "Cannot connect to host api.edgex.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.82
+      },
+      {
+        "sample": 2,
+        "error": "Cannot connect to host api.edgex.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 2.98
+      },
+      {
+        "sample": 3,
+        "error": "Cannot connect to host api.edgex.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.54
+      },
+      {
+        "sample": 4,
+        "error": "Cannot connect to host api.edgex.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 2.92
+      },
+      {
+        "sample": 5,
+        "error": "Cannot connect to host api.edgex.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 1.67
+      },
+      {
+        "sample": 6,
+        "error": "Cannot connect to host api.edgex.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 2.62
+      },
+      {
+        "sample": 7,
+        "error": "Cannot connect to host api.edgex.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 2.64
+      },
+      {
+        "sample": 8,
+        "error": "Cannot connect to host api.edgex.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 2.46
+      },
+      {
+        "sample": 9,
+        "error": "Cannot connect to host api.edgex.exchange:443 ssl:default [nodename nor servname provided, or not known]",
+        "latency_ms": 2.59
+      }
+    ]
+  }
+}

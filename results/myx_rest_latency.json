@@ -1,0 +1,17 @@
+{
+  "platform": "myx",
+  "display_name": "MYX Finance",
+  "rest_latency": {
+    "endpoint": "GET /v2/quote/market/contracts",
+    "base_url": "https://api.myx.finance",
+    "samples": 100,
+    "errors": 0,
+    "p50_ms": 161.09,
+    "p95_ms": 253.89,
+    "p99_ms": 502.58,
+    "mean_ms": 177.14,
+    "min_ms": 128.35,
+    "max_ms": 679.49,
+    "stdev_ms": 67.16
+  }
+}

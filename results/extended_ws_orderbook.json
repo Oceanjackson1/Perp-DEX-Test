@@ -1,0 +1,8 @@
+{
+  "platform": "extended",
+  "display_name": "Extended (x10)",
+  "ws_orderbook": {
+    "status": "ERROR",
+    "error": "server rejected WebSocket connection: HTTP 404"
+  }
+}

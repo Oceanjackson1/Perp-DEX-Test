@@ -1,0 +1,8 @@
+{
+  "platform": "standx",
+  "display_name": "StandX",
+  "ws_orderbook": {
+    "status": "INSUFFICIENT_DATA",
+    "messages": 1
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "platform": "grvt",
+  "display_name": "GRVT",
+  "ws_orderbook": {
+    "status": "INSUFFICIENT_DATA",
+    "messages": 1
+  }
+}
